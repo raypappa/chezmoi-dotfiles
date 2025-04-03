@@ -1,0 +1,19 @@
+# Source the bash completion scripts from brew
+if type brew &>/dev/null;then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
+# Source any local completions
+if [[ -d "$HOME/.local/share/bash-completion/" ]];then
+  for COMPLETION in "$HOME/.local/share/bash-completion/"*; do
+    [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+  done
+fi

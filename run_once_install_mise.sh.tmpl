@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "darwin" or eq .chezmoi.os "linux" -}}
+#!/bin/bash
+if ! type mise 2>&1 >/dev/null;then
+curl https://mise.run | sh
+fi
+{{ end -}}

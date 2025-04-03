@@ -1,0 +1,5 @@
+#!/bin/bash
+output=$(git remote prune origin)
+echo "$output"
+branches=$(echo "$output" | grep pruned | awk '{print $3}' | cut -d'/' -f2- | tr '\n' ' ')
+test -n "$branches" && git branch -D $branches || echo "No branches to prune here."

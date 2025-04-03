@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+"""
+A cryptographically useful password generator.
+Totally re-written by Kionmaru.
+Modified again by blade2005
+"""
+
+import string
+import argparse
+
+class PWGen(object):
+    """
+    Abstract out python2 / python3 differences,
+    and provide a stable API allowing PW gen.
+    """
+    def __init__(self, allowed_chars):
+        self.allowed_chars = allowed_chars
+        super(PWGen, self).__init__()
+    def generate_pw(self, length):
+        """
+        Generate the PW, using whichever cryptographically useful method is
+        available to us.
+        """
+        try:
+            import secrets
+            pwd = (secrets.choice(self.allowed_chars) for i in range(length))
+        except ImportError as _:
+            from os import urandom
+            pwd = (
+                self.allowed_chars[ord(urandom(1)) % len(self.allowed_chars)]
+                for i in range(length))
+        return ''.join(pwd)
+
+
+def parse_opts():
+    """Parse CLI options"""
+    parser = argparse.ArgumentParser(
+        description='Generate a cryptographically useful password.',
+        epilog='By default, the characters used are {0}.'.format(
+            string.ascii_letters + string.digits + string.punctuation))
+    parser.add_argument('--length', '-l', dest='length', default=32, type=int,
+                        help='Length of password in characters')
+    parser.add_argument('--no-lowercase', dest='nolc', action='store_true',
+                        default=False, help='No lowercase characters')
+    parser.add_argument('--no-digits', dest='nodigits', action='store_true',
+                        default=False, help='No digits characters')
+    parser.add_argument('--no-uppercase', dest='nouc', action='store_true',
+                        default=False, help='No uppercase characters')
+    parser.add_argument('--less-special', '-s', dest='mspec',
+                        action='store_false', default=True,
+                        help='Use the less special characters')
+    parser.add_argument('--no-special', dest='nospec', action='store_true',
+                        default=False, help='No special characters at all')
+    parser.add_argument('-e', '--enforce-min', dest='enforce', action='store_true',
+                        default=False,
+                        help='Enforce at least one of each type.')
+    parser.add_argument('-q', '--quiet', dest='quiet', action='store_true',
+                        default=False, help='Output only the password.')
+    args = parser.parse_args()
+    return vars(args)
+
+def main():
+    """
+    Main function - where the magic happens!
+    """
+    args = parse_opts()
+    chars = ''
+    if not args['nodigits']:
+        chars += string.digits
+    if not args['nolc']:
+        chars += string.ascii_lowercase
+    if not args['nouc']:
+        chars += string.ascii_uppercase
+    if not args['nospec']:
+        if args['mspec']:
+            chars += string.punctuation
+        else:
+            chars += '!?_-'
+    makepw = PWGen(chars)
+    while True:
+        newpw = makepw.generate_pw(args['length'])
+        if not args['enforce']:
+            break
+        if (any(string.ascii_lowercase for c in newpw)
+                and any(string.ascii_uppercase for c in newpw)
+                and any(string.digits for c in newpw)
+                and any(string.punctuation for c in newpw)):
+            break
+    if args['quiet']:
+        print(newpw)
+    else:
+        print("Using characters: {0}".format(chars))
+        print("The new password is: {0}".format(newpw))
+    return 0
+
+if __name__ == '__main__':
+    main()

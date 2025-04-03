@@ -1,0 +1,83 @@
+
+# https://github.com/alacritty/alacritty-theme/blob/master/themes/night_owl.toml
+[colors.primary]
+background = "#011627"
+foreground = "#d6deeb"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.vi_mode_cursor]
+text = "CellBackground"
+cursor = "#22da6e"
+
+[colors.search.matches]
+foreground = "#000000"
+background = "#22da6e"
+
+[colors.search.focused_match]
+foreground = "#ffffff"
+background = "#22da6e"
+
+[colors.footer_bar]
+foreground = "#ffffff"
+background = "#1d3b53"
+
+[colors.selection]
+text = "#ffffff"
+background = "#0d486e"
+
+[colors.normal]
+black = "#011627"
+red = "#EF5350"
+green = "#22da6e"
+yellow = "#c5e478"
+blue = "#82AAFF"
+magenta = "#C792EA"
+cyan = "#21c7a8"
+white = "#ffffff"
+
+[colors.bright]
+black = "#575656"
+red = "#EF5350"
+green = "#22da6e"
+yellow = "#ffeb95"
+blue = "#82AAFF"
+magenta = "#C792EA"
+cyan = "#7fdbca"
+white = "#ffffff"
+
+
+# #https://github.com/alacritty/alacritty-theme/blob/master/themes/solarized_dark.toml
+# [colors.bright]
+# black = "#586e75"
+# blue = "#839496"
+# cyan = "#93a1a1"
+# green = "#586e75"
+# magenta = "#6c71c4"
+# red = "#cb4b16"
+# white = "#fdf6e3"
+# yellow = "#657b83"
+#
+# [colors.cursor]
+# cursor = "#839496"
+# text = "#002b36"
+#
+# [colors.normal]
+# black = "#073642"
+# blue = "#268bd2"
+# cyan = "#2aa198"
+# green = "#859900"
+# magenta = "#d33682"
+# red = "#dc322f"
+# white = "#eee8d5"
+# yellow = "#b58900"
+#
+# [colors.primary]
+# background = "#002b36"
+# foreground = "#839496"
+
+###############################################################################
+################################ End of Color Schemes #########################
+###############################################################################

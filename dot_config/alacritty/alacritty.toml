@@ -1,0 +1,26 @@
+[scrolling]
+history = 100000
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t/"
+
+[window]
+dynamic_title = true
+opacity = 0.8
+startup_mode = "Maximized"
+
+[font]
+size = 15
+
+[font.normal]
+family = "FiraMono Nerd Font Mono"
+[font.bold]
+family = "FiraMono Nerd Font Mono"
+style = "Bold"
+
+[general]
+live_config_reload = true
+import = [
+	"~/.config/alacritty/key-bindings.toml",
+	"~/.config/alacritty/scheme.toml",
+]

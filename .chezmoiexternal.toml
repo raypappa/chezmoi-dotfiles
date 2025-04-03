@@ -1,0 +1,16 @@
+[".oh-my-zsh"]
+type = "git-repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+refreshPeriod = "168h"
+[".git-plugins"]
+type = "git-repo"
+url = "https://github.com/afeld/git-plugins.git"
+refreshPeriod = "168h"
+[".git-extras"]
+type = "git-repo"
+url = " https://github.com/tj/git-extras.git"
+refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-aws-vault"]
+type = "git-repo"
+url = "https://github.com/blimmer/zsh-aws-vault.git"
+refreshPeriod = "168h"
