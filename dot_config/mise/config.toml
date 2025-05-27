@@ -3,7 +3,7 @@
 # backends
 uv = ["latest"] #  Python package and project manager
 aqua = "latest" # Aqua is a tool for managing your shell environment
-ubi = "latest" # univeral binary installer
+ubi = "latest"  # univeral binary installer
 
 # languages
 python = ["latest"]
@@ -16,100 +16,104 @@ groovy = ["latest"]
 lua = "latest"
 
 # nvim
-"pipx:beautysh" = "latest" # sh formatter
-"pipx:mdformat" = "latest" # markdown formatter
-"ubi:junegunn/fzf" = "latest" # fuzzy finder
-"ubi:BurntSushi/ripgrep" = { version = "latest", exe = "rg" } # search tool
-"ubi:sharkdp/fd" = "latest" # search tool
-"ubi:tree-sitter/tree-sitter" = "latest" # parser generator
-"ubi:mikefarah/yq" = "latest" # yaml processor
-"npm:@biomejs/biome" = "latest" # js formatter
-"ubi:astral-sh/ruff" = "latest" # python linter/formatter
-"ubi:patrickvane/shfmt" = "latest" # shell formatter
-"ubi:koalaman/shellcheck" = "latest" # shell linter
-"ubi:errata-ai/vale" = "latest" # prose linter
-"ubi:aquasecurity/trivy" = "latest" # container scanner
-"pipx:yamllint" = "latest" # yaml linter
-"npm:markdownlint-cli2" = "latest" # markdown linter
-"ubi:terraform-linters/tflint" = "latest" # terraform linter
-"ubi:tenable/terrascan" = "latest" # terraform security scanner
-terraform-ls = "latest" # terraform language server
-"npm:yaml-language-server" = "latest" # yaml language server
-neovim = "latest" # neovim
-"go:github.com/bschaatsbergen/hclfmt" = "latest" # terraform formatter
-"go:github.com/segmentio/golines" = "latest" # go formatter
-"go:golang.org/x/tools/cmd/goimports" = "latest" # go formatter
-"ubi:google/yamlfmt" = "latest" # yaml formatter
-"pipx:aider-chat" = { version = "latest", exe = "aider", uvx_args = "--force --python python3.12" } # AI code assistant
-rust-analyzer = "latest" # rust language server
+"pipx:beautysh" = { version = "latest", uvx_args = "--with setuptools" }                                                       # sh formatter
+"pipx:mdformat" = "latest"                                                                                                     # markdown formatter
+"ubi:junegunn/fzf" = "latest"                                                                                                  # fuzzy finder
+"ubi:BurntSushi/ripgrep" = { version = "latest", exe = "rg" }                                                                  # search tool
+"ubi:sharkdp/fd" = "latest"                                                                                                    # search tool
+"ubi:tree-sitter/tree-sitter" = "latest"                                                                                       # parser generator
+"ubi:mikefarah/yq" = "latest"                                                                                                  # yaml processor
+"npm:@biomejs/biome" = "latest"                                                                                                # js formatter
+"ubi:astral-sh/ruff" = "latest"                                                                                                # python linter/formatter
+"ubi:patrickvane/shfmt" = "latest"                                                                                             # shell formatter
+"ubi:koalaman/shellcheck" = "latest"                                                                                           # shell linter
+"ubi:errata-ai/vale" = "latest"                                                                                                # prose linter
+"ubi:aquasecurity/trivy" = "latest"                                                                                            # container scanner
+"pipx:yamllint" = "latest"                                                                                                     # yaml linter
+"npm:markdownlint-cli2" = "latest"                                                                                             # markdown linter
+"ubi:terraform-linters/tflint" = "latest"                                                                                      # terraform linter
+"ubi:tenable/terrascan" = "latest"                                                                                             # terraform security scanner
+terraform-ls = "latest"                                                                                                        # terraform language server
+"npm:yaml-language-server" = "latest"                                                                                          # yaml language server
+neovim = "latest"                                                                                                              # neovim
+"go:github.com/bschaatsbergen/hclfmt" = "latest"                                                                               # terraform formatter
+"go:github.com/segmentio/golines" = "latest"                                                                                   # go formatter
+"go:golang.org/x/tools/cmd/goimports" = "latest"                                                                               # go formatter
+"ubi:google/yamlfmt" = "latest"                                                                                                # yaml formatter
+"pipx:aider-chat" = { version = "latest", exe = "aider", uvx_args = "--force --python python3.12" }                            # AI code assistant
+rust-analyzer = "2025-04-14"                                                                                                   # rust language server
 "ubi:universal-ctags/ctags-nightly-build" = { version = "2023.12.29+e4cb2a0f9ba947d23e526888930bb1487c2cf1d8", exe = "ctags" } #  maintained implementation of ctags
 
 # git
-"go:github.com/royeo/git-checkout-branch" = "latest" # git checkout branch
-"pipx:pre-commit" = "latest" # git pre-commit hooks
-"ubi:cli/cli" = { version = "latest", exe = "gh" } # github cli
-"ubi:jesseduffield/lazygit" = "latest" # git UI
-"go:github.com/craftamap/bb" = "latest" # bitbucket cli
+"go:github.com/royeo/git-checkout-branch" = "latest"                           # git checkout branch
+"pipx:pre-commit" = "latest"                                                   # git pre-commit hooks
+"ubi:cli/cli" = { version = "latest", exe = "gh" }                             # github cli
+"ubi:jesseduffield/lazygit" = "latest"                                         # git UI
+"go:github.com/craftamap/bb" = "latest"                                        # bitbucket cli
 "ubi:https://gitlab.com/gitlab-org/cli" = { version = "latest", exe = "glab" } # gitlab cli
 
 # iac
-terraform = ["latest", "1.5.7", "0.13.7"] # terraform
-terragrunt = "latest" # terraform wrapper
-packer = ["latest"] # packer
-"ubi:aws-cloudformation/rain" = "latest" # cloudformation cli
-awscli = "latest" # aws cli
+terraform = ["latest", "1.5.7", "0.13.7"]                      # terraform
+terragrunt = "latest"                                          # terraform wrapper
+packer = ["latest"]                                            # packer
+"ubi:aws-cloudformation/rain" = "latest"                       # cloudformation cli
+awscli = "latest"                                              # aws cli
 "ubi:opentofu/opentofu" = { version = "latest", exe = "tofu" } # terraform alternative
-"npm:cdktf" = "latest" # cdktf
+"npm:cdktf" = "latest"                                         # cdktf
 
 # kubernetes
-kustomize = ["latest"] # kustomize
-helm = ["latest"] # helm
-krew = ["latest"] # krew
+kustomize = ["latest"]                                        # kustomize
+helm = ["latest"]                                             # helm
+krew = ["latest"]                                             # krew
 "ubi:helm/chart-testing" = { version = "latest", exe = "ct" } # helm chart testing
-"ubi:argoproj/argo-cd" = "latest" # argocd
-"ubi:derailed/k9s" = "latest" # k9s
+"ubi:argoproj/argo-cd" = "latest"                             # argocd
+"ubi:derailed/k9s" = "latest"                                 # k9s
 
 # docker
 "ubi:rancher/cli" = { version = "latest", exe = "rancher" } # rancher cli
-"go:github.com/wagoodman/dive" = "latest" # docker image analyzer
+"go:github.com/wagoodman/dive" = "latest"                   # docker image analyzer
 
 # aws
-aws-vault = "latest" # aws vault
+aws-vault = "latest"          # aws vault
 "pipx:aws-sam-cli" = "latest" # aws sam cli
 
 # tools
-1password = ["latest"] # 1password cli
+1password = ["latest"]                              # 1password cli
 "pipx:b2" = { version = "latest", extras = "full" } # backblaze cli
-"ubi:cloudflare/cloudflared" = "latest" # cloudflare tunnel
-"ubi:coder/coder" = "latest" # coder cli
-ninja = "latest" # ninja build system
-cmake = "latest" # cmake
-tmux = "latest" # tmux
-cargo-binstall = "latest" # cargo binstaller
-"ubi:mk-5/fjira" = "latest" # jira cli
+"ubi:cloudflare/cloudflared" = "latest"             # cloudflare tunnel
+"ubi:coder/coder" = "latest"                        # coder cli
+ninja = "latest"                                    # ninja build system
+cmake = "latest"                                    # cmake
+tmux = "latest"                                     # tmux
+cargo-binstall = "latest"                           # cargo binstaller
+"ubi:mk-5/fjira" = "latest"                         # jira cli
 
 # terminal tools
-"pipx:visidata" = "latest" # A terminal interface for exploring and arranging tabular data.
-direnv = "latest" # load/unload .env files
-starship = "latest" # shell prompt
-"pipx:thefuck" = { version = "latest", uvx_args = "--with setuptools" } # command line tool to correct mistakes
-"ubi:charmbracelet/gum" = "latest" # A tool for glamorous shell scripts
-"go:github.com/akavel/up" = "latest" # Ultimate Plumber, a tool for writing Linux pipes
+"pipx:visidata" = "latest"                                                      # A terminal interface for exploring and arranging tabular data.
+direnv = "latest"                                                               # load/unload .env files
+starship = "latest"                                                             # shell prompt
+"pipx:thefuck" = { version = "latest", uvx_args = "--with setuptools" }         # command line tool to correct mistakes
+"ubi:charmbracelet/gum" = "latest"                                              # A tool for glamorous shell scripts
+"go:github.com/akavel/up" = "latest"                                            # Ultimate Plumber, a tool for writing Linux pipes
 "ubi:wtfutil/wtf" = { version = "latest", exe = "wtfutil", rename_exe = "wtf" } # terminal dashboard
-"ubi:go-task/task" = "latest" # task runner
-"ubi:ducaale/xh" = "latest" # curl alternative
-"go:github.com/dundee/gdu" = "latest" # disk usage analyzer
-"ubi:antonmedv/fx" = "latest" # JSON viewer
-"ubi:dandavison/delta" = "latest" # git diff viewer
-"ubi:carvel-dev/ytt" = "latest" # yaml templating tool
-"pipx:markdown-toc" = "latest" # markdown table of contents generator
-"ubi:dineshba/tf-summarize" = "latest" # terraform summary generator
-"ubi:terraform-docs/terraform-docs" = "latest" # terraform docs generator
-"ubi:jqlang/jq" = "latest" # JSON processor
-"ubi:jgm/pandoc" = "latest" # markdown processor
-"ubi:jesseduffield/lazydocker" = "latest" # docker UI
-"go:github.com/charmbracelet/glow" = "latest" # markdown viewer
-"ubi:siderolabs/conform" = "latest" #  Policy enforcement for your pipelines. 
+"ubi:go-task/task" = "latest"                                                   # task runner
+"ubi:ducaale/xh" = "latest"                                                     # curl alternative
+"go:github.com/dundee/gdu" = "latest"                                           # disk usage analyzer
+"ubi:antonmedv/fx" = "latest"                                                   # JSON viewer
+"ubi:dandavison/delta" = "latest"                                               # git diff viewer
+"ubi:carvel-dev/ytt" = "latest"                                                 # yaml templating tool
+"pipx:markdown-toc" = "latest"                                                  # markdown table of contents generator
+"ubi:dineshba/tf-summarize" = "latest"                                          # terraform summary generator
+"ubi:terraform-docs/terraform-docs" = "latest"                                  # terraform docs generator
+"ubi:jqlang/jq" = "latest"                                                      # JSON processor
+"ubi:jgm/pandoc" = "latest"                                                     # markdown processor
+"ubi:jesseduffield/lazydocker" = "latest"                                       # docker UI
+"go:github.com/charmbracelet/glow" = "latest"                                   # markdown viewer
+"ubi:siderolabs/conform" = "latest"                                             #  Policy enforcement for your pipelines.
+"npm:@devcontainers/cli" = "latest"
+"go:github.com/hickford/git-credential-oauth" = "latest"
+age = "latest"
+
 
 [settings]
 experimental = true
@@ -117,3 +121,4 @@ experimental = true
 
 [settings.pipx]
 uvx = true
+# sopx encrypt -i --age "public_key" .env.json

@@ -108,6 +108,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt APPEND_HISTORY
+setopt HIST_NO_STORE
+export SAVEHIST=1000000
+
 if type starship 2>&1 >/dev/null; then
   eval "$(starship init zsh)"
 fi
@@ -119,4 +131,3 @@ fi
 if [[ -e $HOME/.zaliases.local ]];then
   source $HOME/.zaliases.local
 fi
-

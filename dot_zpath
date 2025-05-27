@@ -24,7 +24,7 @@ fi
 
 
 
-add2path "$HOME/.local/bin" "front" 
+add2path "$HOME/.local/bin" "front"
 add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
 add2path "$HOME/.git-extras/bin" "front"
