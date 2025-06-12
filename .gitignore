@@ -1,4 +1,5 @@
 *.vim/.netrwhist
+tags.lock
 *.vim/bundle/
 
 # Happily lifted from https://github.com/github/gitignore/blob/main/Global/Vim.gitignore

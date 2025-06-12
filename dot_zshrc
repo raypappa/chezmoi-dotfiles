@@ -72,7 +72,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(1password alias-finder aliases argocd branch brew colorize common-aliases direnv docker-compose gh git git-prompt github gnu-utils history jira man ssh ssh-agent starship sudo thefuck tmux uv vscode web-search zsh-aws-vault zsh-navigation-tools)
+plugins=(alias-finder aliases branch colorize common-aliases direnv gh git git-prompt github history man ssh ssh-agent starship sudo thefuck tmux uv vscode web-search zsh-aws-vault zsh-navigation-tools)
 # add optional support for debian
 # add conditional import of gnu-utils
 
@@ -123,6 +123,11 @@ export SAVEHIST=1000000
 if type starship 2>&1 >/dev/null; then
   eval "$(starship init zsh)"
 fi
+
+zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
+zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
+zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
+zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 
 source $HOME/.bash_aliases
 if [[ -e $HOME/.zaliases ]];then
