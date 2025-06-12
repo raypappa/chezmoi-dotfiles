@@ -72,7 +72,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-finder aliases branch colorize common-aliases direnv gh git git-prompt github history man ssh ssh-agent starship sudo thefuck tmux uv vscode web-search zsh-aws-vault zsh-navigation-tools)
+plugins=(alias-finder aliases branch colorize common-aliases direnv gh git git-prompt github history man ssh ssh-agent starship sudo thefuck tmux uv vscode web-search zsh-aws-vault zsh-navigation-tools zsh-autosuggestions)
 # add optional support for debian
 # add conditional import of gnu-utils
 
