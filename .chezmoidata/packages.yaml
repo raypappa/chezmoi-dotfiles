@@ -62,3 +62,7 @@ packages:
       - libgdbm-dev
       - libdb-dev
       - uuid-dev
+      - byacc
+      - file
+      - zsh
+      - unzip
