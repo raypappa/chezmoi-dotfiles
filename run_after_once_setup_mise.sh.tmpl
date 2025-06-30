@@ -1,5 +1,6 @@
 {{ if eq .chezmoi.os "darwin" "linux" -}}
-#!/bin/bash
+#!/bin/sh
+export PATH=~/.local/bin:$PATH
 if type mise 2>&1 >/dev/null;then
 mise install gh
 mise x gh auth login
