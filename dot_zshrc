@@ -133,6 +133,3 @@ source $HOME/.bash_aliases
 if [[ -e $HOME/.zaliases ]];then
   source $HOME/.zaliases
 fi
-if [[ -e $HOME/.zaliases.local ]];then
-  source $HOME/.zaliases.local
-fi

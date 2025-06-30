@@ -1,1 +1,4 @@
 alias ddg='web_search duckduckgo'
+if [[ -e $HOME/.zaliases.local ]];then
+  source $HOME/.zaliases.local
+fi

@@ -20,7 +20,4 @@ style = "Bold"
 
 [general]
 live_config_reload = true
-import = [
-	"~/.config/alacritty/key-bindings.toml",
-	"~/.config/alacritty/scheme.toml",
-]
+import = ["key-bindings.toml", "scheme.toml", "windows.toml"]

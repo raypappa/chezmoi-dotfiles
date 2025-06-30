@@ -5,17 +5,18 @@ Revamped dotfiles now with chezmoi.
 Currently I'm using tmux, bash, and neovim for tooling workflows. Other
 items may not be very well maintained
 
-**NOTE: Don't forget to copy the alacritty.toml file to windows to %APPDATA%\alacritty\alacritty.toml**
+**NOTE: Don't forget to copy the alacritty.toml file to windows to %APPDATA%\\alacritty\\alacritty.toml**
 
 ## Bootstrap on Windows
 
 1. Open a User Powershell terminal
+
 1. Install Packages
 
-    ```powershell
-    winget install -h --accept-package-agreements -e Alacritty.Alacritty 7zip.7zip Amazon.AWSCLI Audacity.Audacity CodecGuide.K-LiteCodecPack.Standard Chocolatey.Chocolatey Mozilla.Firefox  AgileBits.1Password AgileBits.1Password.CLI Git.Git Greenshot.Greenshot Task.Task OliverSchwendener.ueli Amazon.NoSQLWorkbench suse.RancherDesktop SlackTechnologies.Slack VideoLAN.VLC Microsoft.VisualStudioCode Microsoft.VisualStudioCode.CLI Yubico.Piv-Tool Yubico.YubikeyManager Yubico.YubiKeyManagerCLI Yubico.YubiKeyPersonalizationTool Microsoft.PowerShell Microsoft.WindowsTerminal  Atlassian.Sourcetree Joplin.Joplin Zoom.Zoom OpenJS.NodeJS
-    winget install -h --accept-package-agreements sysinternals
-    ```
+   ```powershell
+   winget install -h --accept-package-agreements -e Alacritty.Alacritty 7zip.7zip Amazon.AWSCLI Audacity.Audacity CodecGuide.K-LiteCodecPack.Standard Chocolatey.Chocolatey Mozilla.Firefox  AgileBits.1Password AgileBits.1Password.CLI Git.Git Greenshot.Greenshot Task.Task OliverSchwendener.ueli Amazon.NoSQLWorkbench suse.RancherDesktop SlackTechnologies.Slack VideoLAN.VLC Microsoft.VisualStudioCode Microsoft.VisualStudioCode.CLI Yubico.Piv-Tool Yubico.YubikeyManager Yubico.YubiKeyManagerCLI Yubico.YubiKeyPersonalizationTool Microsoft.PowerShell Microsoft.WindowsTerminal  Atlassian.Sourcetree Joplin.Joplin Zoom.Zoom OpenJS.NodeJS jqlang.jq
+   winget install -h --accept-package-agreements sysinternals
+   ```
 
 1. Close the User Powershell terminal and open an Admin Powershell terminal
 
@@ -27,15 +28,31 @@ items may not be very well maintained
 
 1. Close the Admin Powershell and open a fresh user terminal.
 
-1. In a new User Powershell download the Alacritty Toml
+1. Update terminal settings
 
-    ```powershell
-    $dst="$env:APPDATA\alacritty\alacritty.toml";
-    $dir=(Split-Path -Parent $dst);
-    New-Item -Path "$dir" -Type Directory;
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.toml") | Out-File -NoNewline -Encoding utf8 -FilePath "$dst";
-    (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/blade2005/dotfiles/main/.config/alacritty.win.toml") | Out-File -NoNewline -Encoding utf8 -Append -FilePath "$dst";
-    ```
+   1. Open a new powershell window
+
+   1. If using alacritty do the following
+
+      ```powershell
+      $dir="$env:APPDATA\alacritty";
+      New-Item -Path "$dir" -Type Directory;
+      foreach ($file in  @("alacritty.toml", "key-bindings.toml", "scheme.toml")) {
+      (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/raypappa/chezmoi-dotfiles/refs/heads/main/dot_config/alacritty/$file") | Out-File -NoNewline -Encoding utf8 -FilePath "$dir\$file";
+      }
+      (New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/raypappa/chezmoi-dotfiles/refs/heads/main/dot_config/alacritty/executable_windows.toml") | Out-File -NoNewline -Encoding utf8 -FilePath "$dir\windows.toml";
+      ```
+
+   1. If using Windows Terminal do the following
+
+      ```powershell
+      $termSettingsConfig="$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+      $termSettings = Get-Content $termSettingsConfig -raw | ConvertFrom-Json
+      $termSettings.profiles.defaults.colorScheme = "Solarized Dark"
+      $termSettings.profiles.defaults.font.face = "FiraMono Nerd Font"
+      $termSettings.keybindings = ($termSettings.keybindings | ? {$_.keys -ne "ctrl+c"})
+      $termSettings | ConvertTo-Json -depth 32| set-content $termSettingsConfig
+      ```
 
 1. Configure Rancher
 
@@ -54,37 +71,47 @@ powercfg.exe /hibernate off
 
 wsl.exe --set-default-version 2
 wsl.exe --install -d Debian
+wsl.exe --update
 ```
 
 ## Pre-requisites
 
 1. On MacOS only: Install homebrew
 
-    ```shell
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    ```
-
-1. Install uv
-
-    ```shell
-    UV_UNMANAGED_INSTALL=1 UV_NO_MODIFY_PATH=1 curl -LsSf https://astral.sh/uv/install.sh | sh
-    ```
+   ```shell
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
 
 ## Install
-
-1. Execute ansible with uv
-
-    ```shell
-    sudo -v
-    ```
 
 1. Install chezmoi
 
 ```shell
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/raypappa/chezmoi-dotfiles.git
+sudo -v
+sudo apt install curl -y
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --use-builtin-git --apply https://github.com/raypappa/chezmoi-dotfiles.git
 ```
 
 ### tmux
 
 started having issues with tmux. might need to override `TERM=xterm-256color` instead of `alacritty`
 stead of powershell by default
+
+### Testing config
+
+Must have docker present
+
+```shell
+docker run -it --rm debian
+```
+
+Inside the container
+
+```
+apt update; apt install sudo
+adduser debian --add-extra-groups wheel,sudo --uid 1000 -gid 1000 --home /home/debian --comment ''
+echo 'debian:foobar' | chpass
+sudo -u debian -i
+```
+
+Then run the install instructions from the previous section
