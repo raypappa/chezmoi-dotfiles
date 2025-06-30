@@ -1,6 +1,6 @@
 {{ if eq .chezmoi.os "darwin" "linux" -}}
 #!/bin/sh
-export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
 if type mise 2>&1 >/dev/null;then
 mise install gh
 mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
