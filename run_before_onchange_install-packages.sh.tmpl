@@ -14,6 +14,6 @@ EOF
 {{ else if eq .chezmoi.os "linux" -}}
 {{ if eq .chezmoi.osRelease.id "debian" -}}
 sudo apt update -qq
-sudo apt install -qq {{ range .packages.linux.debian -}}{{ . | quote -}}{{ " "}}{{ end }}
+sudo apt install -y -qq {{ range .packages.linux.debian -}}{{ . | quote -}}{{ " "}}{{ end }}
 {{ end -}}
 {{ end -}}
