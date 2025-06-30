@@ -89,7 +89,7 @@ wsl.exe --update
 ```shell
 sudo -v
 sudo apt install curl -y
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --use-builtin-git --apply https://github.com/raypappa/chezmoi-dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init -R=always --use-builtin-git true --apply https://github.com/raypappa/chezmoi-dotfiles.git
 chsh -s $(which zsh)
 ```
 
@@ -110,9 +110,9 @@ Inside the container
 
 ```
 apt update; apt install sudo
-adduser --comment '' debian
+adduser --comment '' --disabled-password debian
 usermod -a -G sudo debian
-echo 'debian:foobar' | chpass
+echo 'debian:foobar' | chpasswd
 sudo -u debian -i
 ```
 
