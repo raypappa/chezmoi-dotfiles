@@ -45,12 +45,12 @@ rust-analyzer = "2025-04-14"                                                    
 "ubi:universal-ctags/ctags-nightly-build" = { version = "2023.12.29+e4cb2a0f9ba947d23e526888930bb1487c2cf1d8", exe = "ctags" } #  maintained implementation of ctags
 
 # git
-"go:github.com/royeo/git-checkout-branch" = "latest" # git checkout branch
-"pipx:pre-commit" = "latest"                         # git pre-commit hooks
-"ubi:cli/cli" = { version = "latest", exe = "gh" }   # github cli
-"ubi:jesseduffield/lazygit" = "latest"               # git UI
-"go:github.com/craftamap/bb" = "latest"              # bitbucket cli
-"glab" = { version = "latest" }                      # gitlab cli
+"go:github.com/royeo/git-checkout-branch" = "latest"   # git checkout branch
+"pipx:pre-commit" = "latest"                           # git pre-commit hooks
+"ubi:cli/cli" = { version = "latest", exe = "gh" }     # github cli
+"ubi:jesseduffield/lazygit" = "latest"                 # git UI
+"go:github.com/craftamap/bb" = "latest"                # bitbucket cli
+"asdf:mise-plugins/mise-glab" = { version = "latest" } # gitlab cli
 
 # iac
 terraform = ["latest", "1.5.7", "0.13.7"]                      # terraform
