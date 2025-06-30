@@ -90,6 +90,7 @@ wsl.exe --update
 sudo -v
 sudo apt install curl -y
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --use-builtin-git --apply https://github.com/raypappa/chezmoi-dotfiles.git
+chsh -s $(which zsh)
 ```
 
 ### tmux

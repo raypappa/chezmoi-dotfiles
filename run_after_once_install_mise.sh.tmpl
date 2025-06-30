@@ -1,0 +1,9 @@
+{{ if eq .chezmoi.os "darwin" "linux" -}}
+#!/bin/bash
+if type mise 2>&1 >/dev/null;then
+mise install gh
+mise x gh auth login
+export GITHUB_TOKEN=$(mise x gh auth token)
+mise install
+fi
+{{ end -}}
