@@ -3,10 +3,12 @@
 set -e
 export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
 if type mise 2>&1 >/dev/null;then
-mise install gh
+mise install --silent gh
 mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
 export GITHUB_TOKEN=$(mise x gh -- gh auth token)
-mise install uv aqua ubi
-mise install
+echo "Debug: installing backends"
+mise install --silent uv aqua ubi
+echo "Debug: Installing remainder of tools"
+mise install --silent
 fi
 {{ end -}}
