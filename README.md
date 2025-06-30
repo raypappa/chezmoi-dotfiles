@@ -103,17 +103,7 @@ stead of powershell by default
 Must have docker present
 
 ```shell
-docker run -it --rm debian
-```
-
-Inside the container
-
-```
-apt update; apt install sudo
-adduser --comment '' --disabled-password debian
-usermod -a -G sudo debian
-echo 'debian:foobar' | chpasswd
-sudo -u debian -i
+docker run -it --rm debian sh -c 'apt update && apt install sudo && adduser --comment "" --disabled-password debian && usermod -a -G sudo debian && echo 'debian:foobar' | chpasswd && sudo -u debian -i'
 ```
 
 Then run the install instructions from the previous section

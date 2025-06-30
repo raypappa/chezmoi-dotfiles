@@ -6,9 +6,7 @@ if type mise 2>&1 >/dev/null;then
 mise install --silent gh
 mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
 export GITHUB_TOKEN=$(mise x gh -- gh auth token)
-echo "Debug: installing backends"
 mise install --silent uv aqua ubi
-echo "Debug: Installing remainder of tools"
 mise install --silent
 fi
 {{ end -}}
