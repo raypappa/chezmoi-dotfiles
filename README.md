@@ -110,7 +110,8 @@ Inside the container
 
 ```
 apt update; apt install sudo
-adduser debian --add-extra-groups wheel,sudo --uid 1000 -gid 1000 --home /home/debian --comment ''
+adduser --comment '' debian
+usermod -a -G sudo debian
 echo 'debian:foobar' | chpass
 sudo -u debian -i
 ```
