@@ -1,18 +1,18 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 [tools]
 # backends
-uv = ["latest"] #  Python package and project manager
-aqua = "latest" # Aqua is a tool for managing your shell environment
-ubi = "latest"  # univeral binary installer
+uv = { version = "latest" }   #  Python package and project manager
+aqua = { version = "latest" } # Aqua is a tool for managing your shell environment
+ubi = { version = "latest" }  # univeral binary installer
 
 # languages
-python = ["latest"]
-go = ["latest"]
+python = { version = "latest" }
+go = { version = "latest" }
 ruby = "latest"
 rust = "latest"
-node = ["latest"]
+node = { version = "latest" }
 java = "latest"
-groovy = ["latest"]
+groovy = { version = "latest" }
 lua = "latest"
 
 # nvim
@@ -55,16 +55,16 @@ rust-analyzer = "2025-04-14"                                                    
 # iac
 terraform = ["latest", "1.5.7", "0.13.7"]                      # terraform
 terragrunt = "latest"                                          # terraform wrapper
-packer = ["latest"]                                            # packer
+packer = { version = "latest" }                                # packer
 "ubi:aws-cloudformation/rain" = "latest"                       # cloudformation cli
 awscli = "latest"                                              # aws cli
 "ubi:opentofu/opentofu" = { version = "latest", exe = "tofu" } # terraform alternative
 "npm:cdktf" = "latest"                                         # cdktf
 
 # kubernetes
-kustomize = ["latest"]                                        # kustomize
-helm = ["latest"]                                             # helm
-krew = ["latest"]                                             # krew
+kustomize = { version = "latest" }                            # kustomize
+helm = { version = "latest" }                                 # helm
+krew = { version = "latest" }                                 # krew
 "ubi:helm/chart-testing" = { version = "latest", exe = "ct" } # helm chart testing
 "ubi:argoproj/argo-cd" = "latest"                             # argocd
 "ubi:derailed/k9s" = "latest"                                 # k9s
@@ -78,7 +78,7 @@ aws-vault = "latest"          # aws vault
 "pipx:aws-sam-cli" = "latest" # aws sam cli
 
 # tools
-1password = ["latest"]                              # 1password cli
+1password = { version = "latest" }                  # 1password cli
 "pipx:b2" = { version = "latest", extras = "full" } # backblaze cli
 "ubi:cloudflare/cloudflared" = "latest"             # cloudflare tunnel
 "ubi:coder/coder" = "latest"                        # coder cli
