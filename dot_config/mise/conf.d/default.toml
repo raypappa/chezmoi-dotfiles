@@ -1,0 +1,461 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+[settings]
+experimental = true
+
+[settings.pipx]
+uvx = true
+
+[tools]
+
+# # Python package and project manager
+# [tools.uv]
+# version = "latest"
+
+# # Aqua is a tool for managing your shell environment
+# [tools.aqua]
+# version = "latest"
+
+# # universal binary installer
+# [tools.ubi]
+# version = "latest"
+
+# # cargo binstaller
+# [tools.cargo-binstall]
+# version = "latest"
+
+###########################################################
+######################## Languages ########################
+###########################################################
+# [tools.python]
+# version = "latest"
+
+# [tools.go]
+# version = "latest"
+
+# [tools.ruby]
+# version = "latest"
+
+# [tools.rust]
+# version = "latest"
+
+# [tools.node]
+# version = "latest"
+
+# [tools.java]
+# version = "latest"
+
+# [tools.groovy]
+# version = "latest"
+
+# [tools.lua]
+# version = "latest"
+
+# [tools.ninja]
+# version = "latest"
+
+# [tools.cmake]
+# version = "latest"
+
+###########################################################
+########################## NodeJS #########################
+###########################################################
+# # js formatter
+# [tools."npm:@biomejs/biome"]
+# version = "latest"
+
+###########################################################
+########################## Python #########################
+###########################################################
+
+# # python linter/formatter
+# [tools."ubi:astral-sh/ruff"]
+# version = "latest"
+
+###########################################################
+########################## Shell ##########################
+###########################################################
+
+# # shell formatter
+# [tools."ubi:patrickvane/shfmt"]
+# version = "latest"
+
+# # shell linter
+# [tools."ubi:koalaman/shellcheck"]
+# version = "latest"
+
+# # shell formatter
+# [tools."pipx:beautysh"]
+# version = "latest"
+# uvx_args = "--with setuptools"
+
+###########################################################
+######################### Markdown ########################
+###########################################################
+
+# # markdown table of contents generator
+# [tools."pipx:markdown-toc"]
+# version = "latest"
+
+# # markdown linter
+# [tools."npm:markdownlint-cli2"]
+# version = "latest"
+
+# # markdown viewer
+# [tools."go:github.com/charmbracelet/glow"]
+# version = "latest"
+
+# # prose linter
+# [tools."ubi:errata-ai/vale"]
+# version = "latest"
+
+# # markdown formatter
+# [tools."pipx:mdformat"]
+# version = "latest"
+
+# # markdown processor
+# [tools."ubi:jgm/pandoc"]
+# version = "latest"
+
+###########################################################
+######################### Neovim ##########################
+###########################################################
+
+# # fuzzy finder
+# [tools."ubi:junegunn/fzf"]
+# version = "latest"
+
+# # search tool
+# [tools."ubi:BurntSushi/ripgrep"]
+# version = "latest"
+# exe = "rg"
+
+# # search tool
+# [tools."ubi:sharkdp/fd"]
+# version = "latest"
+
+# # parser generator
+# [tools."ubi:tree-sitter/tree-sitter"]
+# version = "latest"
+
+# # neovim
+# [tools.neovim]
+# version = "latest"
+
+# # maintained implementation of ctags
+# [tools."ubi:universal-ctags/ctags-nightly-build"]
+# version = "2023.12.29+e4cb2a0f9ba947d23e526888930bb1487c2cf1d8"
+# exe = "ctags"
+
+###########################################################
+######################## CLI Tools ########################
+###########################################################
+
+# # file encryption
+# [tools.age]
+# version = "latest"
+
+# # AI coding agent
+# [tools."go:github.com/charmbracelet/crush"]
+# version = "latest"
+
+# # terminal video recorder
+# [tools."go:github.com/charmbracelet/vhs"]
+# version = "latest"
+
+# # AI code assistant
+# [tools."pipx:aider-chat"]
+# version = "latest"
+# exe = "aider"
+# uvx_args = "--force --python python3.12"
+
+# # 1password cli
+# [tools.1password]
+# version = "latest"
+
+# # backblaze cli
+# [tools."pipx:b2"]
+# version = "latest"
+# extras = "full"
+
+# # cloudflare tunnel
+# [tools."ubi:cloudflare/cloudflared"]
+# version = "latest"
+
+# # coder cli
+# [tools."ubi:coder/coder"]
+# version = "latest"
+
+# # tmux
+# [tools.tmux]
+# version = "latest"
+
+# # packer
+# [tools.packer]
+# version = "latest"
+
+# # jira cli
+# [tools."ubi:mk-5/fjira"]
+# version = "latest"
+
+# # A terminal interface for exploring and arranging tabular data.
+# [tools."pipx:visidata"]
+# version = "latest"
+
+# # load/unload .env files
+# [tools.direnv]
+# version = "latest"
+
+# # shell prompt
+# [tools.starship]
+# version = "latest"
+
+# # command line tool to correct mistakes
+# [tools."pipx:thefuck"]
+# version = "latest"
+# uvx_args = "--with setuptools"
+
+# # A tool for glamorous shell scripts
+# [tools."ubi:charmbracelet/gum"]
+# version = "latest"
+
+# # Ultimate Plumber, a tool for writing Linux pipes
+# [tools."go:github.com/akavel/up"]
+# version = "latest"
+
+# # terminal dashboard
+# [tools."ubi:wtfutil/wtf"]
+# version = "latest"
+# exe = "wtfutil"
+# rename_exe = "wtf"
+
+# # task runner
+# [tools."ubi:go-task/task"]
+# version = "latest"
+
+# # curl alternative
+# [tools."ubi:ducaale/xh"]
+# version = "latest"
+
+# # disk usage analyzer
+# [tools."go:github.com/dundee/gdu"]
+# version = "latest"
+
+# [tools."npm:@devcontainers/cli"]
+# version = "latest"
+
+###########################################################
+########################### YAML ##########################
+###########################################################
+
+# # yaml templating tool
+# [tools."ubi:carvel-dev/ytt"]
+# version = "latest"
+
+# # yaml formatter
+# [tools."ubi:google/yamlfmt"]
+# version = "latest"
+
+# # yaml language server
+# [tools."npm:yaml-language-server"]
+# version = "latest"
+
+# # yaml processor
+# [tools."ubi:mikefarah/yq"]
+# version = "latest"
+
+# # yaml linter
+# [tools."pipx:yamllint"]
+# version = "latest"
+
+###########################################################
+########################### JSON ##########################
+###########################################################
+# # JSON viewer
+# [tools."ubi:antonmedv/fx"]
+# version = "latest"
+
+# # JSON processor
+# [tools."ubi:jqlang/jq"]
+# version = "latest"
+
+###########################################################
+######################### Terraform #######################
+###########################################################
+
+# # terraform formatter
+# [tools."go:github.com/bschaatsbergen/hclfmt"]
+# version = "main"
+
+# # terraform
+# [tools.terraform]
+# version = "latest"
+
+# # opentofu
+# [tools."ubi:opentofu/opentofu"]
+# version = "latest"
+# exe = "tofu"
+
+# # cdktf
+# [tools."npm:cdktf"]
+# version = "latest"
+
+# # terraform linter
+# [tools."ubi:terraform-linters/tflint"]
+# version = "latest"
+
+# # terraform security scanner
+# [tools."ubi:tenable/terrascan"]
+# version = "latest"
+
+# # terraform language server
+# [tools.terraform-ls]
+# version = "latest"
+
+# # terraform wrapper
+# [tools.terragrunt]
+# version = "latest"
+
+# # terraform docs generator
+# [tools."ubi:terraform-docs/terraform-docs"]
+# version = "latest"
+
+# # terraform summary generator
+# [tools."ubi:dineshba/tf-summarize"]
+# version = "latest"
+
+# # Policy enforcement for your pipelines.
+# [tools."ubi:siderolabs/conform"]
+# version = "latest"
+
+###########################################################
+########################## Golang ##########################
+###########################################################
+
+# # go formatter
+# [tools."go:github.com/segmentio/golines"]
+# version = "latest"
+
+# # go formatter
+# [tools."go:golang.org/x/tools/cmd/goimports"]
+# version = "latest"
+
+###########################################################
+########################### Rust ###########################
+###########################################################
+
+# # rust language server
+# [tools.rust-analyzer]
+# version = "2025-04-14"
+
+###########################################################
+########################### Git ###########################
+###########################################################
+
+# [tools."go:github.com/hickford/git-credential-oauth"]
+# version = "latest"
+
+# # git checkout branch
+# [tools."go:github.com/royeo/git-checkout-branch"]
+# version = "latest"
+
+# # git pre-commit hooks
+# [tools."pipx:pre-commit"]
+# version = "latest"
+
+# # github cli
+# [tools."ubi:cli/cli"]
+# version = "latest"
+# exe = "gh"
+
+# # git UI
+# [tools."ubi:jesseduffield/lazygit"]
+# version = "latest"
+
+# # bitbucket cli
+# [tools."go:github.com/craftamap/bb"]
+# version = "latest"
+
+# # gitlab cli
+# [tools."asdf:mise-plugins/mise-glab"]
+# version = "latest"
+
+# # git diff viewer
+# [tools."ubi:dandavison/delta"]
+# version = "latest"
+
+###########################################################
+########################## AWS ############################
+###########################################################
+
+# # cloudformation cli
+# [tools."ubi:aws-cloudformation/rain"]
+# version = "latest"
+
+# # aws cli
+# [tools.awscli]
+# version = "latest"
+
+# # aws vault
+# [tools."aws-vault"]
+# version = "latest"
+
+# # aws sam cli
+# [tools."pipx:aws-sam-cli"]
+# version = "latest"
+
+###########################################################
+######################## Kubernetes #######################
+###########################################################
+
+# # kustomize
+# [tools.kustomize]
+# version = "latest"
+
+# # helm
+# [tools.helm]
+# version = "latest"
+
+# # krew
+# [tools.krew]
+# version = "latest"
+
+# # helm chart testing
+# [tools."ubi:helm/chart-testing"]
+# version = "latest"
+# exe = "ct"
+
+# # argocd
+# [tools."ubi:argoproj/argo-cd"]
+# version = "latest"
+
+# # k9s
+# [tools."ubi:derailed/k9s"]
+# version = "latest"
+
+# # argocd TUI
+# [tools."ubi:darksworm/argonaut"]
+# version = "latest"
+
+# [tools.kubectl]
+# version = "latest"
+
+###########################################################
+########################## Docker #########################
+###########################################################
+
+# # docker UI
+# [tools."ubi:jesseduffield/lazydocker"]
+# version = "latest"
+
+# # container scanner
+# [tools."ubi:aquasecurity/trivy"]
+# version = "latest"
+
+# # rancher cli
+# [tools."ubi:rancher/cli"]
+# version = "latest"
+# exe = "rancher"
+
+# # docker image analyzer
+# [tools."go:github.com/wagoodman/dive"]
+# version = "latest"
