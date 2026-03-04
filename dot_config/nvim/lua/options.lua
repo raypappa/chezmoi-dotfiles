@@ -59,4 +59,10 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- vim: ts=2 sts=2 sw=2 et
+-- If we're using tmux (TERM is xterm-256color), or if we're using alacritty (TERM is alacritty), enable true color support.
+-- Note: This may also be set by colorscheme plugins, in which case it will not appear to make a difference.
+if vim.env.TERM == 'xterm-256color' or vim.env.TERM == 'alacritty' then
+  vim.opt.termguicolors = true
+end
+
+-- vim: ft=vim ts=2 sts=2 sw=2 et:
