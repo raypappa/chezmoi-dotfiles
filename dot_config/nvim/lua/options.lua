@@ -65,4 +65,6 @@ if vim.env.TERM == 'xterm-256color' or vim.env.TERM == 'alacritty' then
   vim.opt.termguicolors = true
 end
 
+vim.g.lazyvim_blink_main = true
+
 -- vim: ft=vim ts=2 sts=2 sw=2 et:

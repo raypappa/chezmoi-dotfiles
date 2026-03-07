@@ -1,15 +1,15 @@
 return {
   'b0o/schemastore.nvim',
   config = function()
-    require('lspconfig').jsonls.setup {
+    vim.lsp.config('jsonls', {
       settings = {
         json = {
           schemas = require('schemastore').json.schemas(),
           validate = { enable = true },
         },
       },
-    }
-    require('lspconfig').yamlls.setup {
+    })
+    vim.lsp.config('yamlls', {
       settings = {
         yaml = {
           schemaStore = {
@@ -22,6 +22,6 @@ return {
           schemas = require('schemastore').yaml.schemas(),
         },
       },
-    }
+    })
   end,
 }

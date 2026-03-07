@@ -1,11 +1,13 @@
 return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+
     dependencies = {
+      { 'hrsh7th/cmp-nvim-lsp' },
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'williamboman/mason-lspconfig.nvim' },
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -208,10 +210,10 @@ return {
         -- For Cloudformation
         'cfn-lint',
         -- For typescript.. ->rvn<-
-        'eslint_d',
-        'prettierd',
-        'eslint-lsp',
-        'typescript-language-server',
+        -- 'eslint_d',
+        -- 'prettierd',
+        -- 'eslint-lsp',
+        -- 'typescript-language-server',
         'biome', -- This one gets us lsp-signature output in ts.
         -- For rust... ->rvn<-
         'rust-analyzer',
@@ -284,7 +286,8 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.enable { server }
+            -- require('lspconfig')[server_name].setup(server)
           end,
         },
       }
