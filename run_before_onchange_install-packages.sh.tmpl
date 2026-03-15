@@ -11,9 +11,13 @@ brew {{ . | quote }}
 cask {{ . | quote }}
 {{ end -}}
 EOF
+brew autoupdate start
 {{ else if eq .chezmoi.os "linux" -}}
 {{ if eq .chezmoi.osRelease.id "debian" -}}
 sudo apt update -qq
 sudo apt install -y -qq {{ range .packages.linux.debian -}}{{ . | quote -}}{{ " "}}{{ end }}
 {{ end -}}
+if [[ ! -e ~/.config/mise/conf.d/local.toml ]];then
+  cp ~/.config/mise/conf.d/default.toml ~/.config/mise/conf.d/local.toml
+fi
 {{ end -}}

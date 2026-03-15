@@ -82,6 +82,8 @@ wsl.exe --update
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
 
+All other tools for the environment are installed as part of the process for chezmoi.
+
 ## Install
 
 1. Install chezmoi
@@ -107,3 +109,11 @@ docker run -it --rm debian sh -c 'apt update && apt install sudo && adduser --co
 ```
 
 Then run the install instructions from the previous section
+
+## Additional(optional) packages
+
+* [wezterm](https://wezterm.org/index.html) - `brew install --cask wezterm`
+* [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
+* [Zed](https://zed.dev/)
+* [Thunderbird](https://www.thunderbird.net/en-US/)
+* [Nerd Fonts](https://www.nerdfonts.com/)

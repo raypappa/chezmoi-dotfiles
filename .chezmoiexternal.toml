@@ -10,10 +10,10 @@ refreshPeriod = "168h"
 type = "git-repo"
 url = "https://github.com/tj/git-extras.git"
 refreshPeriod = "168h"
-[".oh-my-zsh/custom/plugins/zsh-aws-vault"]
-type = "git-repo"
-url = "https://github.com/blimmer/zsh-aws-vault.git"
-refreshPeriod = "168h"
+# [".oh-my-zsh/custom/plugins/zsh-aws-vault"]
+# type = "git-repo"
+# url = "https://github.com/blimmer/zsh-aws-vault.git"
+# refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
 type = "git-repo"
 url = "https://github.com/zsh-users/zsh-autosuggestions"
