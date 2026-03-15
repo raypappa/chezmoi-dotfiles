@@ -1,32 +1,39 @@
 packages:
   darwin:
     brews:
-      - git
-      - make
-      - unzip
-      - wget
-      - moreutils
-      - zip
+      - alacritty
+      - alfred
+      - autoconf
       - bash-completion
       - binutils
       - coreutils
       - findutils
-      - gnu-tar
-      - gnu-sed
       - gawk
-      - gnutls
-      - gnu-indent
+      - gcc
+      - git
+      - gmp
       - gnu-getopt
+      - gnu-indent
+      - gnu-sed
+      - gnu-tar
+      - gnu-time
+      - gnu-which
+      - gnupg
+      - gnutls
       - grep
-      - tmux
-      - alacritty
-      - visual-studio-code
-      - alfred
+      - gzip
+      - libyaml
+      - make
+      - moreutils
       - openssl@3
       - readline
-      - libyaml
-      - gmp
-      - autoconf
+      - tmux
+      - unzip
+      - visual-studio-code
+      - wget2
+      - xz
+      - zip
+      - zsh
   linux:
     debian:
       - python3-apt
