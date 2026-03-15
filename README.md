@@ -116,4 +116,4 @@ Then run the install instructions from the previous section
 * [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
 * [Zed](https://zed.dev/)
 * [Thunderbird](https://www.thunderbird.net/en-US/)
-* [Nerd Fonts](https://www.nerdfonts.com/)
+* [Nerd Fonts](https://www.nerdfonts.com/) `brew install --cask font-<FONT NAME>-nerd-font`
