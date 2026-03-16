@@ -13,9 +13,9 @@ startup_mode = "Maximized"
 size = 15
 
 [font.normal]
-family = "FiraMono Nerd Font Mono"
+family = "OpenDyslexicM Nerd Font Mono"
 [font.bold]
-family = "FiraMono Nerd Font Mono"
+family = "OpenDyslexicM Nerd Font Mono"
 style = "Bold"
 
 [general]
