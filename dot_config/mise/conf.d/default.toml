@@ -7,54 +7,50 @@ uvx = true
 
 [tools]
 
-# # Python package and project manager
-# [tools.uv]
-# version = "latest"
+# Python package and project manager
+[tools.uv]
+version = "latest"
 
-# # Aqua is a tool for managing your shell environment
-# [tools.aqua]
-# version = "latest"
+# Aqua is a tool for managing your shell environment
+[tools.aqua]
+version = "latest"
 
-# # universal binary installer
-# [tools.ubi]
-# version = "latest"
-
-# # cargo binstaller
-# [tools.cargo-binstall]
-# version = "latest"
+# cargo binstaller
+[tools.cargo-binstall]
+version = "latest"
 
 ###########################################################
 ######################## Languages ########################
 ###########################################################
-# [tools.python]
-# version = "latest"
+[tools.python]
+version = "latest"
 
-# [tools.go]
-# version = "latest"
+[tools.go]
+version = "latest"
 
-# [tools.ruby]
-# version = "latest"
+[tools.ruby]
+version = "latest"
 
-# [tools.rust]
-# version = "latest"
+[tools.rust]
+version = "latest"
 
-# [tools.node]
-# version = "latest"
+[tools.node]
+version = "latest"
 
-# [tools.java]
-# version = "latest"
+[tools.java]
+version = "latest"
 
-# [tools.groovy]
-# version = "latest"
+[tools.groovy]
+version = "latest"
 
-# [tools.lua]
-# version = "latest"
+[tools.lua]
+version = "latest"
 
-# [tools.ninja]
-# version = "latest"
+[tools.ninja]
+version = "latest"
 
-# [tools.cmake]
-# version = "latest"
+[tools.cmake]
+version = "latest"
 
 ###########################################################
 ########################## NodeJS #########################
@@ -149,6 +145,10 @@ uvx = true
 ###########################################################
 ######################## CLI Tools ########################
 ###########################################################
+
+# # notes cli
+# [tools."go:github.com/rhysd/notes-cli/cmd/notes"]
+# version = "master"
 
 # # file encryption
 # [tools.age]
@@ -401,6 +401,14 @@ uvx = true
 
 # # aws sam cli
 # [tools."pipx:aws-sam-cli"]
+# version = "latest"
+
+###########################################################
+########################## Google #########################
+###########################################################
+
+# # google cloud cli
+# [tools.gcloud]
 # version = "latest"
 
 ###########################################################

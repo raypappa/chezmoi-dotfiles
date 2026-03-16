@@ -11,7 +11,7 @@ brew {{ . | quote }}
 cask {{ . | quote }}
 {{ end -}}
 
-{{ range .packages,darwin.taps -}}
+{{ range .packages.darwin.taps -}}
 tap {{ . | quote }}
 {{ end -}}
 
