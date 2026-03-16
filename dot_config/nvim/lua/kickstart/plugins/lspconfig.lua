@@ -271,7 +271,6 @@ return {
         'sqlfmt',
         'sqls',
         -- Others
-        'spectral-language-server',
         'trivy',
         -- For toml
         'taplo',
