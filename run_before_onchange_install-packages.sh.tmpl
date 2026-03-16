@@ -10,6 +10,11 @@ brew {{ . | quote }}
 {{ range .packages.darwin.casks -}}
 cask {{ . | quote }}
 {{ end -}}
+
+{{ range .packages,darwin.taps -}}
+tap {{ . | quote }}
+{{ end -}}
+
 EOF
 brew autoupdate start
 {{ else if eq .chezmoi.os "linux" -}}

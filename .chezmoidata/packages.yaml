@@ -1,8 +1,6 @@
 packages:
   darwin:
     brews:
-      - alacritty
-      - alfred
       - autoconf
       - bash-completion
       - binutils
@@ -27,13 +25,22 @@ packages:
       - moreutils
       - openssl@3
       - readline
-      - tmux
       - unzip
-      - visual-studio-code
       - wget2
       - xz
       - zip
       - zsh
+    casks:
+      - alacritty
+      - alt-tab
+      - font-opendyslexic-nerd-font
+      - 1password
+      - 1password-cli
+      - clocker
+      - alfred
+      - visual-studio-code
+    taps:
+      - domt4/autoupdate
   linux:
     debian:
       - python3-apt

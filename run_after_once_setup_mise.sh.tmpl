@@ -2,6 +2,7 @@
 #!/bin/sh
 set -e
 export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
+hash -r
 if type mise 2>&1 >/dev/null;then
 mise install --silent gh
 mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
