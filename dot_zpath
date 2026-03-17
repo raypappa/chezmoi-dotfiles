@@ -28,14 +28,10 @@ add2path "$HOME/.local/bin" "front"
 add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
 add2path "$HOME/.git-extras/bin" "front"
+add2path "$HOME/.rd/bin" "front"
 
-if [[ -e /usr/local/bin/aws_completer ]];then
-  complete -C '/usr/local/bin/aws_completer' aws
-fi
-
-if type mise &>/dev/null;then
-  eval "$(mise activate zsh)"
-fi
 if [[ -e "$HOME/.zpath.local" ]];then
   source "$HOME/.zpath.local"
 fi
+
+# vim: ci pi sts=0 sw=2 ts=2 ft=zsh

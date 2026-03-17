@@ -129,7 +129,19 @@ zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
 zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
 zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
 zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' glob 1
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' prompt 'Assuming %e errors:'
+zstyle ':completion:*' substitute 1
+zstyle :compinstall filename '/home/${USER}/.zshrc'
+
+autoload -Uz compinit
+compinit
 
 if [[ -e $HOME/.zaliases ]];then
   source $HOME/.zaliases
 fi
+
+# vim: ci pi sts=0 sw=2 ts=2 ft=zsh

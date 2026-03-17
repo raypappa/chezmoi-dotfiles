@@ -44,3 +44,4 @@ fi
 
 export EDITOR=nvim
 export VISUAL=nvim
+# vim: ci pi sts=0 sw=2 ts=2 ft=zsh
