@@ -14,8 +14,7 @@ items may not be very well maintained
 1. Install Packages
 
    ```powershell
-   winget install -h --accept-package-agreements -e Alacritty.Alacritty 7zip.7zip Amazon.AWSCLI Audacity.Audacity CodecGuide.K-LiteCodecPack.Standard Chocolatey.Chocolatey Mozilla.Firefox  AgileBits.1Password AgileBits.1Password.CLI Git.Git Greenshot.Greenshot Task.Task OliverSchwendener.ueli Amazon.NoSQLWorkbench suse.RancherDesktop SlackTechnologies.Slack VideoLAN.VLC Microsoft.VisualStudioCode Microsoft.VisualStudioCode.CLI Yubico.Piv-Tool Yubico.YubikeyManager Yubico.YubiKeyManagerCLI Yubico.YubiKeyPersonalizationTool Microsoft.PowerShell Microsoft.WindowsTerminal  Atlassian.Sourcetree Joplin.Joplin Zoom.Zoom OpenJS.NodeJS jqlang.jq
-   winget install -h --accept-package-agreements sysinternals
+   winget install -h --accept-package-agreements -e Alacritty.Alacritty 7zip.7zip Amazon.AWSCLI Audacity.Audacity CodecGuide.K-LiteCodecPack.Standard Chocolatey.Chocolatey Mozilla.Firefox  AgileBits.1Password AgileBits.1Password.CLI Git.Git Greenshot.Greenshot Task.Task OliverSchwendener.ueli Amazon.NoSQLWorkbench suse.RancherDesktop SlackTechnologies.Slack VideoLAN.VLC Microsoft.VisualStudioCode Microsoft.VisualStudioCode.CLI Yubico.Piv-Tool Yubico.YubikeyManager Yubico.YubiKeyManagerCLI Yubico.YubiKeyPersonalizationTool Microsoft.PowerShell Microsoft.WindowsTerminal  Atlassian.Sourcetree Joplin.Joplin Zoom.Zoom OpenJS.NodeJS jqlang.jq Microsoft.Sysinternals.Suite Microsoft.PowerShell
    ```
 
 1. Close the User Powershell terminal and open an Admin Powershell terminal
@@ -23,7 +22,7 @@ items may not be very well maintained
 1. Install the chocolatey based packages(mostly nerd fonts)
 
    ```powershell
-   choco upgrade -y nerd-fonts-FiraMono chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension  openhardwaremonitor
+   choco upgrade -y nerd-fonts-FiraMono chocolatey chocolatey-compatibility.extension chocolatey-core.extension chocolatey-dotnetfx.extension chocolatey-windowsupdate.extension  openhardwaremonitor nerd-fonts-OpenDyslexic
    ```
 
 1. Close the Admin Powershell and open a fresh user terminal.
