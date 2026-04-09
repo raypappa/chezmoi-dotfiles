@@ -2,12 +2,21 @@ packages:
   darwin:
     brews:
       - autoconf
+      - bash
       - bash-completion
       - binutils
+      - brotli
+      - ca-certificates
       - coreutils
+      - dnsmasq
+      - docker
+      - docker-buildx
+      - docker-completion
+      - docker-credential-helper
       - findutils
       - gawk
       - gcc
+      - gettext
       - git
       - gmp
       - gnu-getopt
@@ -18,27 +27,43 @@ packages:
       - gnu-which
       - gnupg
       - gnutls
+      - gpatch
+      - gpgme
       - grep
       - gzip
-      - libyaml
       - make
       - moreutils
+      - ncurses
+      - nettle
+      - npth
       - openssl@3
+      - pinentry
+      - rancher-cli
       - readline
+      - showkey
+      - tmux
+      - tree
+      - unbound
       - unzip
       - wget2
+      - wireguard-go
+      - wireguard-tools
       - xz
       - zip
       - zsh
+      - zstd
     casks:
-      - alacritty
-      - alt-tab
-      - font-opendyslexic-nerd-font
       - 1password
       - 1password-cli
-      - clocker
+      - alacritty
       - alfred
+      - alt-tab
+      - clocker
+      - firefox
+      - font-opendyslexic-nerd-font
+      - rancher
       - visual-studio-code
+      - zed
     taps:
       - domt4/autoupdate
   linux:
