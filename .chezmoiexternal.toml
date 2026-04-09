@@ -18,7 +18,7 @@ refreshPeriod = "168h"
 type = "git-repo"
 url = "https://github.com/zsh-users/zsh-autosuggestions"
 refreshPeriod = "168h"
-[".fons/OpenDyslexic"]
+[".fonts/OpenDyslexic"]
 type = "archive"
 url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/OpenDyslexic.zip"
 format = "zip"
