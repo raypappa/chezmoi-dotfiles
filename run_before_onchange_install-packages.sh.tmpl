@@ -22,7 +22,5 @@ brew autoupdate start || echo ""
 sudo apt update -qq
 sudo apt install -y -qq {{ range .packages.linux.debian -}}{{ . | quote -}}{{ " "}}{{ end }}
 {{ end -}}
-if [[ ! -e ~/.config/mise/conf.d/local.toml ]];then
-  cp ~/.config/mise/conf.d/default.toml ~/.config/mise/conf.d/local.toml
-fi
+curl -sS https://starship.rs/install.sh | sh
 {{ end -}}
