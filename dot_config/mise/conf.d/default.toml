@@ -1,6 +1,10 @@
 #:schema https://mise.jdx.dev/schema/mise.json
+# vim: ft=toml:
+# Do not install starship here, use it externally so that zsh has it loaded as early as possible.
+
 [settings]
 experimental = true
+lockfile = true
 
 [settings.pipx]
 uvx = true
@@ -147,8 +151,12 @@ version = "latest"
 ###########################################################
 
 # # notes cli
-# [tools."go:github.com/rhysd/notes-cli/cmd/notes"]
-# version = "master"
+# [tools."go:github.com/naterator/notes/cmd/notes"]
+# version = "latest"
+
+# # jira cli
+# [tools."github:ankitpokhrel/jira-cli"]
+# version = "latest"
 
 # # file encryption
 # [tools.age]
@@ -203,10 +211,6 @@ version = "latest"
 
 # # load/unload .env files
 # [tools.direnv]
-# version = "latest"
-
-# # shell prompt
-# [tools.starship]
 # version = "latest"
 
 # # command line tool to correct mistakes
@@ -281,6 +285,10 @@ version = "latest"
 ###########################################################
 ######################### Terraform #######################
 ###########################################################
+
+# # hcl to json converter
+# [tools.hcl2json]
+# version = "latest"
 
 # # terraform formatter
 # [tools."go:github.com/bschaatsbergen/hclfmt"]
@@ -357,6 +365,7 @@ version = "latest"
 # # git checkout branch
 # [tools."go:github.com/royeo/git-checkout-branch"]
 # version = "latest"
+# post_install = "git config --global alias.cb checkout-branch"
 
 # # git pre-commit hooks
 # [tools."pipx:pre-commit"]
