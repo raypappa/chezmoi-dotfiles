@@ -73,3 +73,14 @@ chars = "\u001BP"
 key = "Q"
 mods = "Alt"
 chars = "\u001BQ"
+# https://github.com/alacritty/alacritty/issues/474#issuecomment-338803299
+[[keyboard.bindings]]
+# Alt + Home (Start of Line)
+key = "Home"
+mods = "Alt"
+chars = "\u001bOH"
+[[keyboard.bindings]]
+# Alt + End (End of Line)
+key = "End"
+mods = "Alt"
+chars = "\u001bOF"
