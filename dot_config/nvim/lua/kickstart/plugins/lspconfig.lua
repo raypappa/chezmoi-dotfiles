@@ -232,7 +232,8 @@ return {
         'marksman',
         'docformatter',
         'markdown-toc',
-        'mdformat',
+        -- need to install manually as we need to use plugins
+        -- 'mdformat',
         'mdsf',
         'vale-ls',
         -- For python
@@ -266,7 +267,6 @@ return {
         'terraform-ls',
         'tflint',
         'tfsec',
-        'hclfmt',
         -- For sql
         'sqlfmt',
         'sqls',
