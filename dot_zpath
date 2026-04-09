@@ -13,6 +13,17 @@ add2path() {
 # Without repeating ourselves.
 if [[ -e /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  add2path "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gnu-indent/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gnu-tar/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gnu-time/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gnu-which/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/gpatch/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/grep/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/opt/make/libexec/gnubin" "front"
 fi;
 
 # Be safe with MacOS paths.. yeah
@@ -21,8 +32,6 @@ if [[ -e "${HOME}/Library/Python" ]]; then
     add2path "${entry}" "front"
   done
 fi
-
-
 
 add2path "$HOME/.local/bin" "front"
 add2path "$HOME/.krew/bin" "front"
