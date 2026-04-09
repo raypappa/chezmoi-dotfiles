@@ -69,6 +69,9 @@ if type mise >/dev/null 2>&1;then
   eval "$(mise activate zsh)"
   eval "$(mise completion zsh)"
 fi
+if type jira >/dev/null 2>&1;then
+  eval "$(jira completion zsh)"
+fi
 if type fjira >/dev/null 2>&1;then
   eval "$(fjira completion zsh)"
 fi
@@ -78,13 +81,70 @@ fi
 if type glab >/dev/null 2>&1;then
     source <(glab completion -s zsh); compdef _glab glab
 fi
-# This will work for when gcloud is installed via mise
-# This will probably work for direct install or brew install.
-# This almost certainly won't work via apt/yum
-if type gcloud >/dev/null 2>&1;then
-  if [[ -e $(dirname $(dirname $(which gcloud)))/completion.zsh.inc ]];then
-    source $(dirname $(dirname $(which gcloud)))/completion.zsh.inc
+if type op >/dev/null 2>&1;then
+    source <(op completion zsh); compdef _op op
+fi
+if type helm >/dev/null 2>&1;then
+  source <(helm completion zsh)
+fi
+if type kubectl >/dev/null 2>&1;then
+  source <(kubectl completion zsh)
+fi
+if type rdctl >/dev/null 2>&1;then
+  source <(rdctl completion zsh)
+fi
+if type ruff >/dev/null 2>&1;then
+  source <(ruff generate-shell-completion zsh)
+fi
+if type fzf >/dev/null 2>&1;then
+  source <(fzf --zsh)
+fi
+if type rg >/dev/null 2>&1;then
+  source <(rg --generate=complete-zsh)
+fi
+if type tree-sitter >/dev/null 2>&1;then
+  source <(tree-sitter complete -s zsh)
+fi
+if type task >/dev/null 2>&1;then
+  source <(task --completion zsh)
+fi
+if type ytt >/dev/null 2>&1;then
+  source <(ytt completion zsh)
+fi
+if type conform >/dev/null 2>&1;then
+  source <(conform completion zsh)
+fi
+if type yq >/dev/null 2>&1;then
+  source <(yq completion zsh)
+fi
+if type kustomize >/dev/null 2>&1;then
+  source <(kustomize completion zsh)
+fi
+if type argo-cd >/dev/null 2>&1;then
+  source <(argo-cd completion zsh)
+fi
+if type trivy >/dev/null 2>&1;then
+  source <(trivy completion zsh)
+fi
+if type dive >/dev/null 2>&1;then
+  source <(dive completion zsh)
+fi
+if type taplo >/dev/null 2>&1;then
+  source <(taplo completions zsh)
+fi
+if type k9s >/dev/null 2>&1;then
+  source <(k9s completion zsh)
+fi
+
+# gcloud completion for mise
+if mise where gcloud >/dev/null 2>&1;then
+  if [[ -e $(mise where gcloud)/completion.zsh.inc ]];then
+    source $(mise where gcloud)/completion.zsh.inc
   fi
+fi
+# gcloud completion for brew
+if [[ -e "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc" ]];then
+  source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # colored GCC warnings and errors
