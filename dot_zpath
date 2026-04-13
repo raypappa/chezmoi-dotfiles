@@ -39,6 +39,8 @@ add2path "$HOME/.git-plugins/bin" "front"
 add2path "$HOME/.git-extras/bin" "front"
 add2path "$HOME/.rd/bin" "front"
 
+add2path "${KREW_ROOT:-$HOME/.krew}/bin"
+
 if [[ -e "$HOME/.zpath.local" ]];then
   source "$HOME/.zpath.local"
 fi
