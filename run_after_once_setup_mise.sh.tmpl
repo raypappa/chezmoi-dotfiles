@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "darwin" "linux" -}}
 #!/bin/sh
 set -e
-export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/opt/homebrew/bin:$PATH
 hash -r
 if type mise 2>&1 >/dev/null;then
 mise install --silent gh
