@@ -84,3 +84,8 @@ chars = "\u001bOH"
 key = "End"
 mods = "Alt"
 chars = "\u001bOF"
+[[keyboard.bindings]]
+# Alt + K (Erase to EOL in tmux)
+key = "K"
+mods = "Alt"
+chars = "\u001bk"
