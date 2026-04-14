@@ -1,13 +1,13 @@
 add2path() {
-  if ! (($path[(Ie)$1])); then
-    if [[ $2 == "front" ]]; then
-      path=($1 $path)
-    else
-      path+=($1)
-    fi
-
-    export PATH
+  local b=$1
+  path[$path[(i)$b]]=()
+  if [[ $2 == "front" ]]; then
+    path=($b $path)
+  else
+    path+=($b)
   fi
+
+  export PATH
 }
 # The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
 # Without repeating ourselves.
