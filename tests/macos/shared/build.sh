@@ -11,7 +11,7 @@ fi
 
 
 export GH_SKIP=1
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init -R=always --use-builtin-git true --apply https://github.com/raypappa/chezmoi-dotfiles.git
+zsh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init -R=always --use-builtin-git true --apply https://github.com/raypappa/chezmoi-dotfiles.git
 
 echo "Finished installing dotfiles"
 
