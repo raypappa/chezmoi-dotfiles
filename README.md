@@ -109,10 +109,54 @@ docker run -it --rm debian sh -c 'apt update && apt install sudo && adduser --co
 
 Then run the install instructions from the previous section
 
+#### MacOS
+
+1. Install [macosvm](https://github.com/s-u/macosvm)
+1. Download [UniversalMac](https://mrmacintosh.com/apple-silicon-m1-full-macos-restore-ipsw-firmware-files-database/) [img](https://updates.cdn-apple.com/2026WinterFCS/fullrestores/122-00766/062A6121-2ABE-45D7-BCB1-72B666B6D2C2/UniversalMac_26.4_25E246_Restore.ipsw)
+1. Create disk
+
+```shell
+macosvm --disk disk.img,size=50g --aux aux.img --restore UniversalMac_14.6.1_23G93_Restore.ipsw vm.json
+```
+
+1. Provision mac
+
+```shell
+macosvm -g vm.json
+```
+
+1. Set up user `builds`
+1. enable remote login in settings -> Sharing
+1. enable remote management in settings -> Sharing
+1. copy ssh key via ssh
+1. install brew
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+1. Update sudoers `sudo visudo`
+
+```
+builds ALL=(ALL) NOPASSWD: /sbin/shutdown
+```
+
+1. Shutdown
+
+```shell
+sudo shutdown -h now
+```
+
+1. Clone disk
+
+```shell
+cp -c disk.img master.img
+```
+
 ## Additional(optional) packages
 
-* [wezterm](https://wezterm.org/index.html) - `brew install --cask wezterm`
-* [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
-* [Zed](https://zed.dev/)
-* [Thunderbird](https://www.thunderbird.net/en-US/)
-* [Nerd Fonts](https://www.nerdfonts.com/) `brew install --cask font-<FONT NAME>-nerd-font`
+- [wezterm](https://wezterm.org/index.html) - `brew install --cask wezterm`
+- [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
+- [Zed](https://zed.dev/)
+- [Thunderbird](https://www.thunderbird.net/en-US/)
+- [Nerd Fonts](https://www.nerdfonts.com/) `brew install --cask font-<FONT NAME>-nerd-font`
