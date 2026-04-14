@@ -2,8 +2,6 @@ packages:
   darwin:
     brews:
       - autoconf
-      - bash
-      - bash-completion
       - binutils
       - brotli
       - ca-certificates
