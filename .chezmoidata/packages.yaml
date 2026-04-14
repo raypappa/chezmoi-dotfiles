@@ -6,7 +6,6 @@ packages:
       - brotli
       - ca-certificates
       - coreutils
-      - dnsmasq
       - docker
       - docker-buildx
       - docker-completion
