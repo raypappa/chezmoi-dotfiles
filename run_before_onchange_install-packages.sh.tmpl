@@ -18,6 +18,7 @@ tap {{ . | quote }}
 
 EOF
 brew autoupdate start || echo ""
+defaults write com.abhishek.Clocker startAtLogin 1
 {{ else if eq .chezmoi.os "linux" -}}
 export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
 {{ if eq .chezmoi.osRelease.id "debian" -}}
