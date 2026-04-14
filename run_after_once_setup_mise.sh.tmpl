@@ -4,12 +4,12 @@ set -e
 export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/opt/homebrew/bin:$PATH
 hash -r
 if type mise 2>&1 >/dev/null;then
-if [[ -z "$GH_SKIP" ]];then
-mise install --silent gh
-mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
-export GITHUB_TOKEN=$(mise x gh -- gh auth token)
-fi
-mise install --silent uv aqua ubi
-mise install --silent
+  if [[ -z "$GH_SKIP" ]];then
+    mise install --silent gh
+    mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login
+    export GITHUB_TOKEN=$(mise x gh -- gh auth token)
+  fi
+  mise install --silent uv aqua ubi
+  mise install --silent
 fi
 {{ end -}}
