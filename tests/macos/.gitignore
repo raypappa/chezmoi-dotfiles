@@ -1,0 +1,4 @@
+*.img
+vm.json
+*.img-clone*
+*.ipsw
