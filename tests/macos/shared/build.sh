@@ -15,7 +15,7 @@ cat << 'EOF' > ~/.config/chezmoi/chezmoi.toml
 [env]
 GH_SKIP = "1"
 EOF
-sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- -b $HOME/.local/bin init -R=always --use-builtin-git true --apply https://github.com/raypappa/chezmoi-dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- -b $HOME/.local/bin init -R=always --use-builtin-git true --apply https://github.com/raypappa/chezmoi-dotfiles.git --verbose
 
 echo "Finished installing dotfiles"
 
