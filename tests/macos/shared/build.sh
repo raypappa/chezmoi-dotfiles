@@ -20,4 +20,4 @@ sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- -b $HOME/.local/bin init -R=always --
 echo "Finished installing dotfiles"
 
 cd "$SVOL"
-./tests.sh
+zsh -l ./tests.sh
