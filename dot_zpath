@@ -9,6 +9,7 @@ add2path() {
 
   export PATH
 }
+
 # The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
 # Without repeating ourselves.
 if [[ -e /opt/homebrew/bin/brew ]]; then
@@ -24,6 +25,7 @@ if [[ -e /opt/homebrew/bin/brew ]]; then
   add2path "$HOMEBREW_PREFIX/opt/gpatch/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/grep/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/make/libexec/gnubin" "front"
+  add2path "$HOMEBREW_PREFIX/Caskroom/gcloud-cli/latest/google-cloud-sdk/bin"
 fi;
 
 # Be safe with MacOS paths.. yeah

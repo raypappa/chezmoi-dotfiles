@@ -9,10 +9,11 @@ return {
     opts = {
       anti_conceal = {
         enabled = true,
-        above = 2,
-        below = 2,
       },
     },
+  },
+  {
+    'habamax/vim-rst',
   },
   -- {
   --   'ellisonleao/glow.nvim',

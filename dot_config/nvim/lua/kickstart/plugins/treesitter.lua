@@ -1,8 +1,9 @@
 return {
   { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
+    'arborist-ts/arborist.nvim',
     opts = {
+      install_popular = true,
+      prefer_wasm = true,
       ensure_installed = {
         'bash',
         'c',
@@ -24,24 +25,16 @@ return {
         'jq',
         'json',
         'json5',
-        'jsonc',
         'mermaid',
         'terraform',
         'ssh_config',
         'tmux',
         'typescript',
       },
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
     },
+    config = function(opts)
+      require('arborist').setup(opts)
+    end,
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

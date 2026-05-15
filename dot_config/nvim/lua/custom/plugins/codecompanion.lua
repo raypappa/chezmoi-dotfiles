@@ -3,7 +3,7 @@ vim.env['CODECOMPANION_TOKEN_PATH'] = vim.fn.expand '~/.config'
 return {
   'olimorris/codecompanion.nvim',
   dependencies = {
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+    { 'arborist-ts/arborist.nvim' },
     { 'nvim-lua/plenary.nvim' },
     { 'zbirenbaum/copilot.lua' },
     { 'saghen/blink.cmp' },

@@ -30,3 +30,4 @@ if [ -f ~/.bashrc ]; then
 fi
 
 export PATH="$HOME/.rd/bin:$PATH"
+export OP_ACCOUNT="my.1password.com"
