@@ -1,5 +1,9 @@
 alias vim='uv run \nvim'
-# alias crush='mise x -- crush'
+function oc() {
+  local gh_token
+  gh_token=$(gh auth token)
+  GITHUB_PERSONAL_ACCESS_TOKEN=$gh_token mise x -- opencode "$@"
+}
 function crush() {
   local gh_token
   gh_token=$(gh auth token)
