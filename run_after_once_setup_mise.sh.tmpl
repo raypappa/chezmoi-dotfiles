@@ -1,9 +1,12 @@
 {{ if eq .chezmoi.os "darwin" "linux" -}}
 #!/bin/sh
+# vim: ft=sh
 set -e
 export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/opt/homebrew/bin:$PATH
 hash -r
+mkdir-p ~/.local/share/zsh/completions
 if type mise >/dev/null 2>&1;then
+  mise completion zsh  > ~/.local/share/zsh/completions/_mise
   if [ -z "$GH_SKIP" ];then
     mise install --silent gh
     mise x gh -- gh auth status -h github.com || mise x gh -- gh auth login

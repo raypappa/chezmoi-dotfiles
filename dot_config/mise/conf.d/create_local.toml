@@ -5,9 +5,114 @@
 [settings]
 experimental = true
 lockfile = true
+minimum_release_age = "3d"
+pin = true
 
 [settings.pipx]
 uvx = true
+
+[bootstrap.packages]
+"brew:autoconf" = { os = "macos" }
+"brew:bash" = { os = "macos" }
+"brew:bash-completion" = { os = "macos" }
+"brew:binutils" = { os = "macos" }
+"brew:brotli" = { os = "macos" }
+"brew:ca-certificates" = { os = "macos" }
+"brew:coreutils" = { os = "macos" }
+"brew:dnsmasq" = { os = "macos" }
+"brew:docker" = { os = "macos" }
+"brew:docker-buildx" = { os = "macos" }
+"brew:docker-completion" = { os = "macos" }
+"brew:docker-credential-helper" = { os = "macos" }
+"brew:findutils" = { os = "macos" }
+"brew:gawk" = { os = "macos" }
+"brew:gcc" = { os = "macos" }
+"brew:gettext" = { os = "macos" }
+"brew:git" = { os = "macos" }
+"brew:gmp" = { os = "macos" }
+"brew:gnu-getopt" = { os = "macos" }
+"brew:gnu-indent" = { os = "macos" }
+"brew:gnu-sed" = { os = "macos" }
+"brew:gnu-tar" = { os = "macos" }
+"brew:gnu-time" = { os = "macos" }
+"brew:gnu-which" = { os = "macos" }
+"brew:gnupg" = { os = "macos" }
+"brew:gnutls" = { os = "macos" }
+"brew:gpatch" = { os = "macos" }
+"brew:gpgme" = { os = "macos" }
+"brew:grep" = { os = "macos" }
+"brew:gzip" = { os = "macos" }
+"brew:make" = { os = "macos" }
+"brew:moreutils" = { os = "macos" }
+"brew:ncurses" = { os = "macos" }
+"brew:nettle" = { os = "macos" }
+"brew:npth" = { os = "macos" }
+"brew:openssl@3" = { os = "macos" }
+"brew:pinentry" = { os = "macos" }
+"brew:rancher-cli" = { os = "macos" }
+"brew:readline" = { os = "macos" }
+"brew:showkey" = { os = "macos" }
+"brew:tmux" = { os = "macos" }
+"brew:tree" = { os = "macos" }
+"brew:unbound" = { os = "macos" }
+"brew:unzip" = { os = "macos" }
+"brew:wget2" = { os = "macos" }
+"brew:wireguard-go" = { os = "macos" }
+"brew:wireguard-tools" = { os = "macos" }
+"brew:xz" = { os = "macos" }
+"brew:zip" = { os = "macos" }
+"brew:zsh" = { os = "macos" }
+"brew:zstd" = { os = "macos" }
+"brew-cask:1password" = { os = "macos" }
+"brew-cask:1password-cli" = { os = "macos" }
+"brew-cask:alacritty" = { os = "macos" }
+"brew-cask:alfred" = { os = "macos" }
+"brew-cask:alt-tab" = { os = "macos" }
+"brew-cask:clocker" = { os = "macos" }
+"brew-cask:firefox" = { os = "macos" }
+"brew-cask:font-opendyslexic-nerd-font" = { os = "macos" }
+"brew-cask:rancher" = { os = "macos" }
+"brew-cask:visual-studio-code" = { os = "macos" }
+"brew-cask:zed" = { os = "macos" }
+"brew-cask:domt4/autoupdate" = { os = "macos" }
+
+"apt:python3-apt" = { version = "latest" }
+"apt:command-not-found" = { version = "latest" }
+# pyenv dependencies
+"apt:build-essential" = { version = "latest" }
+"apt:libssl-dev" = { version = "latest" }
+"apt:zlib1g-dev" = { version = "latest" }
+"apt:libbz2-dev" = { version = "latest" }
+"apt:libreadline-dev" = { version = "latest" }
+"apt:libsqlite3-dev" = { version = "latest" }
+"apt:curl" = { version = "latest" }
+"apt:git" = { version = "latest" }
+"apt:libncursesw5-dev" = { version = "latest" }
+"apt:xz-utils" = { version = "latest" }
+"apt:tk-dev" = { version = "latest" }
+"apt:libxml2-dev" = { version = "latest" }
+"apt:libxmlsec1-dev" = { version = "latest" }
+"apt:libffi-dev" = { version = "latest" }
+"apt:liblzma-dev" = { version = "latest" }
+# ruby-build dependencies
+"apt:autoconf" = { version = "latest" }
+"apt:patch" = { version = "latest" }
+"apt:libyaml-dev" = { version = "latest" }
+"apt:libreadline6-dev" = { version = "latest" }
+"apt:libgmp-dev" = { version = "latest" }
+"apt:libncurses5-dev" = { version = "latest" }
+"apt:libgdbm6" = { version = "latest" }
+"apt:libgdbm-dev" = { version = "latest" }
+"apt:libdb-dev" = { version = "latest" }
+"apt:uuid-dev" = { version = "latest" }
+"apt:byacc" = { version = "latest" }
+"apt:file" = { version = "latest" }
+"apt:zsh" = { version = "latest" }
+"apt:unzip" = { version = "latest" }
+[bootstrap.macos.defaults]
+"com.apple.finder" = { AppleShowAllFiles = true }
+[bootstrap.user]
+login_shell = "/usr/bin/zsh"
 
 [tools]
 
@@ -21,6 +126,10 @@ version = "latest"
 
 # cargo binstaller
 [tools.cargo-binstall]
+version = "latest"
+
+# usage, required for mise completion
+[tools.usager]
 version = "latest"
 
 ###########################################################
@@ -70,6 +179,7 @@ version = "latest"
 # # python linter/formatter
 # [tools."ubi:astral-sh/ruff"]
 # version = "latest"
+# post_install = 'ruff generate-shell-completion zsh > "~/.local/share/zsh/completions/_ruff"'
 
 ###########################################################
 ########################## Shell ##########################
@@ -123,11 +233,13 @@ version = "latest"
 # # fuzzy finder
 # [tools."ubi:junegunn/fzf"]
 # version = "latest"
+# post_install = 'fzf --zsh > ~/.local/share/zsh/completions/_fzf'
 
 # # search tool
 # [tools."ubi:BurntSushi/ripgrep"]
 # version = "latest"
 # exe = "rg"
+# post_install = 'rg -generate=complete-zsh > ~/.local/share/zsh/completions/_rg'
 
 # # search tool
 # [tools."ubi:sharkdp/fd"]
@@ -136,6 +248,7 @@ version = "latest"
 # # parser generator
 # [tools."ubi:tree-sitter/tree-sitter"]
 # version = "latest"
+# post_install = 'tree-sitter complete -s zsh > "~/.local/share/zsh/completions/_tree-sitter"'
 
 # # neovim
 # [tools.neovim]
@@ -157,6 +270,7 @@ version = "latest"
 # # jira cli
 # [tools."github:ankitpokhrel/jira-cli"]
 # version = "latest"
+# post_install = 'jira completion zsh > "~/.local/share/zsh/completions/_jira"'
 
 # # file encryption
 # [tools.age]
@@ -179,6 +293,7 @@ version = "latest"
 # # 1password cli
 # [tools.1password]
 # version = "latest"
+# post_install = 'op completion zsh > "~/.local/share/zsh/completions/_op"'
 
 # # backblaze cli
 # [tools."pipx:b2"]
@@ -204,6 +319,7 @@ version = "latest"
 # # jira cli
 # [tools."ubi:mk-5/fjira"]
 # version = "latest"
+# post_install = 'fjira completion zsh > "~/.local/share/zsh/completions/_fjira"'
 
 # # A terminal interface for exploring and arranging tabular data.
 # [tools."pipx:visidata"]
@@ -235,6 +351,7 @@ version = "latest"
 # # task runner
 # [tools."ubi:go-task/task"]
 # version = "latest"
+# post_install = 'task --completion zsh > "~/.local/share/zsh/completions/_task"'
 
 # # curl alternative
 # [tools."ubi:ducaale/xh"]
@@ -248,12 +365,21 @@ version = "latest"
 # version = "latest"
 
 ###########################################################
+########################### TOML ##########################
+###########################################################
+
+# [tools.taplo]
+# version = "latest"
+# post_install = 'taplo completions zsh > "~/.local/share/zsh/completions/_taplo"'
+
+###########################################################
 ########################### YAML ##########################
 ###########################################################
 
 # # yaml templating tool
 # [tools."ubi:carvel-dev/ytt"]
 # version = "latest"
+# post_install = 'ytt completion zsh > "~/.local/share/zsh/completions/_ytt"'
 
 # # yaml formatter
 # [tools."ubi:google/yamlfmt"]
@@ -266,6 +392,7 @@ version = "latest"
 # # yaml processor
 # [tools."ubi:mikefarah/yq"]
 # version = "latest"
+# post_install = 'yq completion zsh > "~/.local/share/zsh/completions/_yq"'
 
 # # yaml linter
 # [tools."pipx:yamllint"]
@@ -334,6 +461,7 @@ version = "latest"
 # # Policy enforcement for your pipelines.
 # [tools."ubi:siderolabs/conform"]
 # version = "latest"
+# post_install = 'conform completion zsh > "~/.local/share/zsh/completions/_conform"'
 
 ###########################################################
 ########################## Golang ##########################
@@ -387,6 +515,7 @@ version = "latest"
 # # gitlab cli
 # [tools."asdf:mise-plugins/mise-glab"]
 # version = "latest"
+# post_install = 'glab completion -s zsh > "~/.local/share/zsh/completions/_glab"'
 
 # # git diff viewer
 # [tools."ubi:dandavison/delta"]
@@ -419,6 +548,7 @@ version = "latest"
 # # google cloud cli
 # [tools.gcloud]
 # version = "latest"
+# post_install = "ln -s $(mise where gcloud)/completion.zsh.inc ~/.local/share/zsh/completions/_gcloud"
 
 ###########################################################
 ######################## Kubernetes #######################
@@ -427,10 +557,12 @@ version = "latest"
 # # kustomize
 # [tools.kustomize]
 # version = "latest"
+# post_install = 'kustomize completion zsh > "~/.local/share/zsh/completions/_kustomize"'
 
 # # helm
 # [tools.helm]
 # version = "latest"
+# post_install = 'helm completion zsh > "~/.local/share/zsh/completions/_helm"'
 
 # # krew
 # [tools.krew]
@@ -444,10 +576,12 @@ version = "latest"
 # # argocd
 # [tools."ubi:argoproj/argo-cd"]
 # version = "latest"
+# post_install = 'argocd completion zsh > "~/.local/share/zsh/completions/_argocd"'
 
 # # k9s
 # [tools."ubi:derailed/k9s"]
 # version = "latest"
+# post_install = 'k9s completion zsh > "~/.local/share/zsh/completions/_k9s"'
 
 # # argocd TUI
 # [tools."ubi:darksworm/argonaut"]
@@ -455,6 +589,7 @@ version = "latest"
 
 # [tools.kubectl]
 # version = "latest"
+# post_install = 'kubectl completion zsh > "~/.local/share/zsh/completions/_kubectl"'
 
 ###########################################################
 ########################## Docker #########################
@@ -467,6 +602,7 @@ version = "latest"
 # # container scanner
 # [tools."ubi:aquasecurity/trivy"]
 # version = "latest"
+# post_install = 'trivy completion zsh > "~/.local/share/zsh/completions/_trivy"'
 
 # # rancher cli
 # [tools."ubi:rancher/cli"]
@@ -476,3 +612,4 @@ version = "latest"
 # # docker image analyzer
 # [tools."go:github.com/wagoodman/dive"]
 # version = "latest"
+# post_install = 'dive completion zsh > "~/.local/share/zsh/completions/_dive"'
