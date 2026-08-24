@@ -179,7 +179,7 @@ version = "latest"
 # # python linter/formatter
 # [tools."ubi:astral-sh/ruff"]
 # version = "latest"
-# post_install = 'ruff generate-shell-completion zsh > "~/.local/share/zsh/completions/_ruff"'
+# postinstall = 'ruff generate-shell-completion zsh > "~/.local/share/zsh/completions/_ruff"'
 
 ###########################################################
 ########################## Shell ##########################
@@ -233,13 +233,13 @@ version = "latest"
 # # fuzzy finder
 # [tools."ubi:junegunn/fzf"]
 # version = "latest"
-# post_install = 'fzf --zsh > ~/.local/share/zsh/completions/_fzf'
+# postinstall = 'fzf --zsh > ~/.local/share/zsh/completions/_fzf'
 
 # # search tool
 # [tools."ubi:BurntSushi/ripgrep"]
 # version = "latest"
 # exe = "rg"
-# post_install = 'rg -generate=complete-zsh > ~/.local/share/zsh/completions/_rg'
+# postinstall = 'rg -generate=complete-zsh > ~/.local/share/zsh/completions/_rg'
 
 # # search tool
 # [tools."ubi:sharkdp/fd"]
@@ -248,7 +248,7 @@ version = "latest"
 # # parser generator
 # [tools."ubi:tree-sitter/tree-sitter"]
 # version = "latest"
-# post_install = 'tree-sitter complete -s zsh > "~/.local/share/zsh/completions/_tree-sitter"'
+# postinstall = 'tree-sitter complete -s zsh > "~/.local/share/zsh/completions/_tree-sitter"'
 
 # # neovim
 # [tools.neovim]
@@ -270,7 +270,7 @@ version = "latest"
 # # jira cli
 # [tools."github:ankitpokhrel/jira-cli"]
 # version = "latest"
-# post_install = 'jira completion zsh > "~/.local/share/zsh/completions/_jira"'
+# postinstall = 'jira completion zsh > "~/.local/share/zsh/completions/_jira"'
 
 # # file encryption
 # [tools.age]
@@ -289,7 +289,7 @@ version = "latest"
 # # 1password cli
 # [tools.1password]
 # version = "latest"
-# post_install = 'op completion zsh > "~/.local/share/zsh/completions/_op"'
+# postinstall = 'op completion zsh > "~/.local/share/zsh/completions/_op"'
 
 # # backblaze cli
 # [tools."pipx:b2"]
@@ -315,7 +315,7 @@ version = "latest"
 # # jira cli
 # [tools."ubi:mk-5/fjira"]
 # version = "latest"
-# post_install = 'fjira completion zsh > "~/.local/share/zsh/completions/_fjira"'
+# postinstall = 'fjira completion zsh > "~/.local/share/zsh/completions/_fjira"'
 
 # # A terminal interface for exploring and arranging tabular data.
 # [tools."pipx:visidata"]
@@ -347,7 +347,7 @@ version = "latest"
 # # task runner
 # [tools."ubi:go-task/task"]
 # version = "latest"
-# post_install = 'task --completion zsh > "~/.local/share/zsh/completions/_task"'
+# postinstall = 'task --completion zsh > "~/.local/share/zsh/completions/_task"'
 
 # # curl alternative
 # [tools."ubi:ducaale/xh"]
@@ -366,7 +366,7 @@ version = "latest"
 
 # [tools.taplo]
 # version = "latest"
-# post_install = 'taplo completions zsh > "~/.local/share/zsh/completions/_taplo"'
+# postinstall = 'taplo completions zsh > "~/.local/share/zsh/completions/_taplo"'
 
 ###########################################################
 ########################### YAML ##########################
@@ -375,7 +375,7 @@ version = "latest"
 # # yaml templating tool
 # [tools."ubi:carvel-dev/ytt"]
 # version = "latest"
-# post_install = 'ytt completion zsh > "~/.local/share/zsh/completions/_ytt"'
+# postinstall = 'ytt completion zsh > "~/.local/share/zsh/completions/_ytt"'
 
 # # yaml formatter
 # [tools."ubi:google/yamlfmt"]
@@ -388,7 +388,7 @@ version = "latest"
 # # yaml processor
 # [tools."ubi:mikefarah/yq"]
 # version = "latest"
-# post_install = 'yq completion zsh > "~/.local/share/zsh/completions/_yq"'
+# postinstall = 'yq completion zsh > "~/.local/share/zsh/completions/_yq"'
 
 # # yaml linter
 # [tools."pipx:yamllint"]
@@ -457,7 +457,7 @@ version = "latest"
 # # Policy enforcement for your pipelines.
 # [tools."ubi:siderolabs/conform"]
 # version = "latest"
-# post_install = 'conform completion zsh > "~/.local/share/zsh/completions/_conform"'
+# postinstall = 'conform completion zsh > "~/.local/share/zsh/completions/_conform"'
 
 ###########################################################
 ########################## Golang ##########################
@@ -511,7 +511,7 @@ version = "latest"
 # # gitlab cli
 # [tools."asdf:mise-plugins/mise-glab"]
 # version = "latest"
-# post_install = 'glab completion -s zsh > "~/.local/share/zsh/completions/_glab"'
+# postinstall = 'glab completion -s zsh > "~/.local/share/zsh/completions/_glab"'
 
 # # git diff viewer
 # [tools."ubi:dandavison/delta"]
@@ -544,7 +544,7 @@ version = "latest"
 # # google cloud cli
 # [tools.gcloud]
 # version = "latest"
-# post_install = "ln -s $(mise where gcloud)/completion.zsh.inc ~/.local/share/zsh/completions/_gcloud"
+# postinstall = "ln -s $(mise where gcloud)/completion.zsh.inc ~/.local/share/zsh/completions/_gcloud"
 
 ###########################################################
 ######################## Kubernetes #######################
@@ -553,12 +553,12 @@ version = "latest"
 # # kustomize
 # [tools.kustomize]
 # version = "latest"
-# post_install = 'kustomize completion zsh > "~/.local/share/zsh/completions/_kustomize"'
+# postinstall = 'kustomize completion zsh > "~/.local/share/zsh/completions/_kustomize"'
 
 # # helm
 # [tools.helm]
 # version = "latest"
-# post_install = 'helm completion zsh > "~/.local/share/zsh/completions/_helm"'
+# postinstall = 'helm completion zsh > "~/.local/share/zsh/completions/_helm"'
 
 # # krew
 # [tools.krew]
@@ -572,12 +572,12 @@ version = "latest"
 # # argocd
 # [tools."ubi:argoproj/argo-cd"]
 # version = "latest"
-# post_install = 'argocd completion zsh > "~/.local/share/zsh/completions/_argocd"'
+# postinstall = 'argocd completion zsh > "~/.local/share/zsh/completions/_argocd"'
 
 # # k9s
 # [tools."ubi:derailed/k9s"]
 # version = "latest"
-# post_install = 'k9s completion zsh > "~/.local/share/zsh/completions/_k9s"'
+# postinstall = 'k9s completion zsh > "~/.local/share/zsh/completions/_k9s"'
 
 # # argocd TUI
 # [tools."ubi:darksworm/argonaut"]
@@ -585,7 +585,7 @@ version = "latest"
 
 # [tools.kubectl]
 # version = "latest"
-# post_install = 'kubectl completion zsh > "~/.local/share/zsh/completions/_kubectl"'
+# postinstall = 'kubectl completion zsh > "~/.local/share/zsh/completions/_kubectl"'
 
 ###########################################################
 ########################## Docker #########################
@@ -598,7 +598,7 @@ version = "latest"
 # # container scanner
 # [tools."ubi:aquasecurity/trivy"]
 # version = "latest"
-# post_install = 'trivy completion zsh > "~/.local/share/zsh/completions/_trivy"'
+# postinstall = 'trivy completion zsh > "~/.local/share/zsh/completions/_trivy"'
 
 # # rancher cli
 # [tools."ubi:rancher/cli"]
@@ -608,4 +608,4 @@ version = "latest"
 # # docker image analyzer
 # [tools."go:github.com/wagoodman/dive"]
 # version = "latest"
-# post_install = 'dive completion zsh > "~/.local/share/zsh/completions/_dive"'
+# postinstall = 'dive completion zsh > "~/.local/share/zsh/completions/_dive"'

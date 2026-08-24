@@ -4,7 +4,7 @@
 
 Chezmoi-managed dotfiles. Source files use chezmoi naming (`dot_*`, `run_*`, `*.tmpl`); they are **not** target paths. Edit source names, not `~/.config/...` paths.
 
-Managed areas: shell (`dot_zshrc`, `dot_bashrc`, `dot_zaliases`, `dot_zshenv`, `dot_zprofile`), terminal/tmux (`dot_tmux.conf`, `dot_config/alacritty/`), Neovim (`dot_config/nvim/`), X11, fluxbox, i3, starship (`dot_config/starship.toml`), mise (`dot_config/mise/`), and install scripts (`run_*`).
+Managed areas: shell (`dot_zshrc`, `dot_bashrc`, `dot_zaliases`, `dot_zshenv`), terminal/tmux (`dot_tmux.conf`, `dot_config/alacritty/`), Neovim (`dot_config/nvim/`), X11, fluxbox, i3, starship (`dot_config/starship.toml`), mise (`dot_config/mise/`), and install scripts (`run_*`).
 
 ## Chezmoi conventions
 

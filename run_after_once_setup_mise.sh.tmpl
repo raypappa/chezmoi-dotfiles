@@ -2,9 +2,15 @@
 #!/bin/sh
 # vim: ft=sh
 set -e
-export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/opt/homebrew/bin:$PATH
+if [ -x /opt/homebrew/bin/brew ]; then
+  export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/opt/homebrew/bin:$PATH
+elif [ -x /usr/local/bin/brew ]; then
+  export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:/usr/local/bin:$PATH
+else
+  export PATH=$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
+fi
 hash -r
-mkdir-p ~/.local/share/zsh/completions
+mkdir -p ~/.local/share/zsh/completions
 if type mise >/dev/null 2>&1;then
   mise completion zsh  > ~/.local/share/zsh/completions/_mise
   if [ -z "$GH_SKIP" ];then

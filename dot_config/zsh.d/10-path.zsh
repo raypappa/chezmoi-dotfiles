@@ -13,7 +13,13 @@ add2path() {
 }
 
 if [[ -x /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  brew_bin=/opt/homebrew/bin/brew
+elif [[ -x /usr/local/bin/brew ]]; then
+  brew_bin=/usr/local/bin/brew
+fi
+
+if [[ -n $brew_bin ]]; then
+  eval "$($brew_bin shellenv)"
   add2path "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin" "front"
@@ -27,6 +33,7 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   add2path "$HOMEBREW_PREFIX/opt/make/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/Caskroom/gcloud-cli/latest/google-cloud-sdk/bin"
 fi
+unset brew_bin
 
 if [[ -d "${HOME}/Library/Python" ]]; then
   for path_entry in "${HOME}/Library/Python"/*/bin(N-/); do
