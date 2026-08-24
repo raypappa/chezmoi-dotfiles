@@ -1,16 +1,17 @@
-# ~/.zshrc: This file is sourced for interactive shells, after /etc/zshrc.
+# ~/.zshrc is sourced for interactive shells after ~/.zshenv and, for login
+# shells, ~/.zprofile. It skips the 00-19 environment/PATH modules and loads
+# the 20+ interactive modules in lexical order.
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME is configured in zsh.d/30-oh-my-zsh.zsh.
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -19,7 +20,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE is configured in zsh.d/30-oh-my-zsh.zsh.
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
@@ -72,13 +73,23 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-finder aliases branch colorize common-aliases git git-prompt github history man ssh ssh-agent starship sudo tmux uv vscode web-search zsh-navigation-tools zsh-autosuggestions)
+# plugins are configured in zsh.d/20-plugins.zsh.
 # add optional support for debian
 # add conditional import of gnu-utils
 
-if [[ -e "$ZSH/oh-my-zsh.sh" ]];then
-  source $ZSH/oh-my-zsh.sh
+zsh_config_dirs=("${XDG_CONFIG_HOME:-$HOME/.config}/zsh.d")
+if [[ -d "$HOME/.dotfiles/.config/zsh.d" ]]; then
+  zsh_config_dirs+=("$HOME/.dotfiles/.config/zsh.d")
 fi
+config_files=(${^zsh_config_dirs}/*.zsh(N))
+config_files=(${(o)config_files})
+for config_file in "${config_files[@]}"; do
+  [[ "${config_file:t}" == [0-1][0-9]-* ]] && continue
+  source "$config_file"
+done
+unset config_file config_files zsh_config_dirs
+
+# Oh My Zsh is loaded from zsh.d/30-oh-my-zsh.zsh.
 
 # User configuration
 
@@ -125,10 +136,6 @@ if type starship 2>&1 >/dev/null; then
   eval "$(starship init zsh)"
 fi
 
-zstyle ':omz:plugins:alias-finder' autoload yes # disabled by default
-zstyle ':omz:plugins:alias-finder' longer yes # disabled by default
-zstyle ':omz:plugins:alias-finder' exact yes # disabled by default
-zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' completions 1
 zstyle ':completion:*' glob 1
@@ -139,9 +146,5 @@ zstyle :compinstall filename '/home/${USER}/.zshrc'
 
 autoload -Uz compinit
 compinit
-
-if [[ -e $HOME/.zaliases ]];then
-  source $HOME/.zaliases
-fi
 
 # vim: ci pi sts=0 sw=2 ts=2 ft=zsh

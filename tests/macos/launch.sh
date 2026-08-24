@@ -8,7 +8,7 @@ if [ -z "$mac" ]; then
     exit 1
 fi
 
-echo -n Waiting for IP address of $mac 
+echo -n Waiting for IP address of $mac
 ## arp drops leading zeros so remove them
 mac=$(echo $mac | sed -e 's/^0//' -e 's/:0/:/g')
 i=0

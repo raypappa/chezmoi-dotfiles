@@ -276,10 +276,6 @@ version = "latest"
 # [tools.age]
 # version = "latest"
 
-# # AI coding agent
-# [tools."go:github.com/charmbracelet/crush"]
-# version = "latest"
-
 # # terminal video recorder
 # [tools."go:github.com/charmbracelet/vhs"]
 # version = "latest"

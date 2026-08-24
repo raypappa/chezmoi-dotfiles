@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+if command -v gh >/dev/null 2>&1; then
+  GITHUB_PERSONAL_ACCESS_TOKEN=$(gh auth token 2>/dev/null)
+  if [[ -n "$GITHUB_PERSONAL_ACCESS_TOKEN" ]]; then
+    export GITHUB_PERSONAL_ACCESS_TOKEN
+  fi
+fi
+
+if command -v mise >/dev/null 2>&1; then
+  if command -v fnox >/dev/null 2>&1; then
+    exec mise x -- fnox exec -- opencode "$@"
+  fi
+  exec mise x -- opencode "$@"
+fi
+
+if ! command -v opencode >/dev/null 2>&1; then
+  print -u2 "oc: opencode was not found in PATH"
+  exit 127
+fi
+
+if command -v fnox >/dev/null 2>&1; then
+  exec fnox exec -- opencode "$@"
+fi
+
+exec opencode "$@"

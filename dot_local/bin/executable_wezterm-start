@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+selection="$(switch-project "$@")"
+
+if [[ -z "$selection" ]]; then
+  exit 1
+fi
+
+wezterm start --new-tab --cwd "$selection"

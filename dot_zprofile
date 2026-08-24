@@ -1,4 +1,13 @@
-# /etc/zprofile and /etc/zlogin: These files are sourced for login shells,
-# after /etc/zshenv and ~/.zshenv.
-
-source ${HOME}/.zpath
+# ~/.zprofile is sourced for login shells after ~/.zshenv.
+# It loads only the 00-19 PATH modules. Interactive login shells continue
+# through .zshrc afterward, which loads the 20+ interactive modules.
+zsh_path_dirs=("${XDG_CONFIG_HOME:-$HOME/.config}/zsh.d")
+if [[ -d "$HOME/.dotfiles/.config/zsh.d" ]]; then
+  zsh_path_dirs+=("$HOME/.dotfiles/.config/zsh.d")
+fi
+zsh_path_files=(${^zsh_path_dirs}/[0-1][0-9]-*.zsh(N))
+zsh_path_files=(${(o)zsh_path_files})
+for zsh_path_file in "${zsh_path_files[@]}"; do
+  source "$zsh_path_file"
+done
+unset zsh_path_file zsh_path_files zsh_path_dirs

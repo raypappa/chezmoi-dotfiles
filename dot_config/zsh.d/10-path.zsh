@@ -1,18 +1,18 @@
 add2path() {
-  local b=$1
-  path[$path[(i)$b]]=()
-  if [[ $2 == "front" ]]; then
-    path=($b $path)
-  else
-    path+=($b)
+  local path_entry=$1
+  local existing_index=$path[(Ie)$path_entry]
+  if (( existing_index )); then
+    path[$existing_index]=()
   fi
-
+  if [[ $2 == "front" ]]; then
+    path=($path_entry $path)
+  else
+    path+=($path_entry)
+  fi
   export PATH
 }
 
-# The $PATH should be in zshenv, but can be reset in /etc/zprofile, so we also set it in .zprofile...
-# Without repeating ourselves.
-if [[ -e /opt/homebrew/bin/brew ]]; then
+if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   add2path "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/findutils/libexec/gnubin" "front"
@@ -26,12 +26,11 @@ if [[ -e /opt/homebrew/bin/brew ]]; then
   add2path "$HOMEBREW_PREFIX/opt/grep/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/opt/make/libexec/gnubin" "front"
   add2path "$HOMEBREW_PREFIX/Caskroom/gcloud-cli/latest/google-cloud-sdk/bin"
-fi;
+fi
 
-# Be safe with MacOS paths.. yeah
-if [[ -e "${HOME}/Library/Python" ]]; then
-  for entry in $(find "${HOME}/Library/Python" -maxdepth 2 -iname 'bin' -type d); do
-    add2path "${entry}" "front"
+if [[ -d "${HOME}/Library/Python" ]]; then
+  for path_entry in "${HOME}/Library/Python"/*/bin(N-/); do
+    add2path "$path_entry" "front"
   done
 fi
 
@@ -40,11 +39,8 @@ add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
 add2path "$HOME/.git-extras/bin" "front"
 add2path "$HOME/.rd/bin" "front"
-
 add2path "${KREW_ROOT:-$HOME/.krew}/bin"
 
-if [[ -e "$HOME/.zpath.local" ]];then
-  source "$HOME/.zpath.local"
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
 fi
-
-# vim: ci pi sts=0 sw=2 ts=2 ft=zsh

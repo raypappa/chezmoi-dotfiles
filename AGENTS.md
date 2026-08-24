@@ -74,9 +74,11 @@ Entrypoint: `dot_config/nvim/init.lua`. Load order: `options` → `keymaps` → 
 ## Shell conventions
 
 - `dot_zshrc` uses Oh My Zsh with theme `robbyrussell` and starship initialized after (`eval "$(starship init zsh)"` if starship is in PATH). `CASE_SENSITIVE="true"`.
-- Plugin list is long and tuned; avoid churn: `alias-finder aliases branch colorize common-aliases git git-prompt github history man ssh ssh-agent starship sudo tmux uv vscode web-search zsh-navigation-tools zsh-autosuggestions`.
+- The managed Oh My Zsh plugins are `aliases`, `git`, `history`, `ssh`,
+  `ssh-agent`, `zsh-navigation-tools`, and `zsh-autosuggestions`.
 - History is heavily configured: `SAVEHIST=1000000`, dedup + share across sessions.
-- `dot_zshrc` sources `$HOME/.zaliases` (→ `dot_zaliases`) if it exists.
+- `dot_zshrc` loads interactive modules from `~/.config/zsh.d/` and the local
+  `~/.dotfiles/.config/zsh.d/` directory in lexical order.
 - `dot_tmux.conf`: prefix is `C-a`; includes vim↔tmux navigation interop with process-detection passthrough.
 
 ## Pre-commit

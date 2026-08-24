@@ -1,0 +1,518 @@
+#!/usr/bin/env -S uv run --script
+# vim: ft=python:
+# /// script
+# dependencies = [
+#   "textual",
+#   "loguru",
+# ]
+# ///
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import threading
+import termios
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass
+from functools import wraps
+from pathlib import Path
+from time import perf_counter
+from typing import Any
+
+from loguru import logger
+
+
+BENCH_ENABLED = os.getenv("SWITCH_PROJECT_BENCH", "0").lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+BENCH_TRACE = os.getenv("SWITCH_PROJECT_BENCH_TRACE", "0").lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+ECHO_SELECTION_ON_TTY = os.getenv("SWITCH_PROJECT_ECHO_SELECTION", "0").lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+BENCH_STATS: dict[str, list[float]] = defaultdict(list)
+BENCH_LOCK = threading.Lock()
+SORT_ORDERS = ("modified-desc", "modified-asc", "path-asc", "path-desc")
+SORT_LABELS = {
+    "modified-desc": "modified newest",
+    "modified-asc": "modified oldest",
+    "path-asc": "path A-Z",
+    "path-desc": "path Z-A",
+}
+
+
+def get_max_workers() -> int:
+    raw = os.getenv("SWITCH_PROJECT_MAX_WORKERS")
+    if raw:
+        try:
+            value = int(raw)
+            if value > 0:
+                return value
+        except ValueError:
+            pass
+    return 8
+
+
+def configure_logging() -> None:
+    logger.remove()
+    log_level = os.getenv("SWITCH_PROJECT_LOG_LEVEL", "INFO")
+    log_path = Path.home() / ".local" / "var" / "log" / "switch-project.log"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    logger.add(
+        log_path,
+        level=log_level,
+        format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {message}",
+        mode="a",
+    )
+
+
+def echo_selection(path: str) -> None:
+    if not ECHO_SELECTION_ON_TTY:
+        return
+    try:
+        with open("/dev/tty", "w", encoding="utf-8", buffering=1) as tty:
+            tty.write(path + "\n")
+            tty.flush()
+    except OSError:
+        pass
+
+
+def timed(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        if not BENCH_ENABLED:
+            return fn(*args, **kwargs)
+
+        started = perf_counter()
+        try:
+            return fn(*args, **kwargs)
+        finally:
+            elapsed_ms = (perf_counter() - started) * 1000
+            with BENCH_LOCK:
+                BENCH_STATS[fn.__name__].append(elapsed_ms)
+            if BENCH_TRACE:
+                logger.debug("{name} took {elapsed:.2f} ms", name=fn.__name__, elapsed=elapsed_ms)
+
+    return wrapper
+
+
+def log_benchmark_summary() -> None:
+    if not BENCH_ENABLED or not BENCH_STATS:
+        return
+
+    logger.info("--- benchmark summary ---")
+    ranked = sorted(BENCH_STATS.items(), key=lambda kv: sum(kv[1]), reverse=True)
+    for name, samples in ranked:
+        total = sum(samples)
+        avg = total / len(samples)
+        peak = max(samples)
+        logger.info(
+            "{name}: calls={calls} total={total:.2f} ms avg={avg:.2f} ms max={peak:.2f} ms",
+            name=name,
+            calls=len(samples),
+            total=total,
+            avg=avg,
+            peak=peak,
+        )
+
+
+def cleanup_tty_state() -> None:
+    try:
+        with open("/dev/tty", "w", encoding="utf-8", buffering=1) as tty:
+            tty.write(
+                "\x1b[0m"
+                "\x1b[?25h"
+                "\x1b[?7h"
+                "\x1b[?2004l"
+                "\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1004l"
+                "\x1b[?1005l\x1b[?1006l\x1b[?1015l"
+                "\r\x1b[2K"
+            )
+            tty.flush()
+    except OSError:
+        pass
+
+
+def snapshot_tty(fd: int) -> list[Any] | None:
+    try:
+        return termios.tcgetattr(fd)
+    except termios.error:
+        return None
+
+
+def restore_tty(fd: int, state: list[Any] | None) -> None:
+    if state is None:
+        return
+    try:
+        termios.tcsetattr(fd, termios.TCSANOW, state)
+    except termios.error:
+        pass
+
+
+@timed
+def run_command(args: list[str], cwd: Path | None = None) -> tuple[int, str, str]:
+    proc = subprocess.run(
+        args,
+        cwd=str(cwd) if cwd else None,
+        stdin=subprocess.DEVNULL,
+        capture_output=True,
+        text=True,
+        check=False,
+        start_new_session=True,
+    )
+    return proc.returncode, proc.stdout, proc.stderr
+
+
+@timed
+def sanitize_note(note: str) -> str:
+    return " ".join(note.replace("\t", " ").splitlines()).strip()
+
+
+@timed
+def shorten_home_path(path: str) -> str:
+    home = str(Path.home())
+    if path == home:
+        return "~"
+    if path.startswith(home + "/"):
+        return "~" + path[len(home) :]
+    return path
+
+
+@dataclass(frozen=True)
+class WorktreeRow:
+    path: str
+    branch: str
+    note: str
+    modified_at: float
+
+
+def filter_rows(rows: list[WorktreeRow], query: str) -> list[WorktreeRow]:
+    q = query.strip().lower()
+    if not q:
+        return rows
+    return [row for row in rows if q in f"{row.path} {row.branch} {row.note}".lower()]
+
+
+def sort_rows(rows: list[WorktreeRow], sort_order: str) -> list[WorktreeRow]:
+    if sort_order == "modified-desc":
+        return sorted(rows, key=lambda r: (-r.modified_at, r.path, r.branch, r.note))
+    if sort_order == "modified-asc":
+        return sorted(rows, key=lambda r: (r.modified_at, r.path, r.branch, r.note))
+    if sort_order == "path-desc":
+        return sorted(rows, key=lambda r: (r.path, r.branch, r.note), reverse=True)
+    return sorted(rows, key=lambda r: (r.path, r.branch, r.note, -r.modified_at))
+
+
+@timed
+def parse_json_payload(payload: str) -> list[dict[str, Any]]:
+    try:
+        decoded = json.loads(payload)
+    except json.JSONDecodeError:
+        return []
+
+    if isinstance(decoded, list):
+        return [entry for entry in decoded if isinstance(entry, dict)]
+    if isinstance(decoded, dict):
+        return [decoded]
+    return []
+
+
+@timed
+def find_repo_markers(workspaces_root: Path, max_depth: int) -> list[Path]:
+    markers: list[Path] = []
+
+    for root, dirnames, _ in os.walk(workspaces_root, topdown=True):
+        root_path = Path(root)
+        depth = len(root_path.relative_to(workspaces_root).parts)
+
+        if depth > max_depth:
+            dirnames[:] = []
+            continue
+
+        for marker_name in (".git", ".bare"):
+            if marker_name in dirnames:
+                markers.append(root_path / marker_name)
+
+        if depth == max_depth:
+            dirnames[:] = []
+        else:
+            dirnames[:] = [d for d in dirnames if d not in {".git", ".bare"}]
+
+    return markers
+
+
+@timed
+def collect_rows(workspaces_root: Path, sort_order: str = "modified-desc") -> list[WorktreeRow]:
+    markers = find_repo_markers(workspaces_root, max_depth=4)
+    repos = sorted({marker.parent for marker in markers})
+
+    rows: dict[tuple[str, str, str], WorktreeRow] = {}
+
+    with ThreadPoolExecutor(max_workers=get_max_workers()) as executor:
+        futures = {executor.submit(collect_rows_for_repo, repo): repo for repo in repos}
+
+        for future in as_completed(futures):
+            repo = futures[future]
+            try:
+                repo_rows = future.result()
+            except Exception as exc:
+                logger.debug("failed collecting rows for {repo}: {error}", repo=repo, error=exc)
+                continue
+
+            for row in repo_rows:
+                rows[(row.path, row.branch, row.note)] = row
+
+    return sort_rows(list(rows.values()), sort_order)
+
+
+@timed
+def collect_rows_for_repo(repo: Path) -> list[WorktreeRow]:
+    collected: list[WorktreeRow] = []
+
+    code, stdout, _ = run_command(
+        ["lazyworktree", "worktrees", "list", "--json", "--no-agent"],
+        cwd=repo,
+    )
+    if code != 0:
+        return collected
+    if not stdout.strip():
+        return collected
+
+    parsed = parse_json_payload(stdout)
+    if len(parsed) == 1 and isinstance(parsed[0].get("items"), list):
+        entries = [item for item in parsed[0]["items"] if isinstance(item, dict)]
+    else:
+        entries = parsed
+
+    for entry in entries:
+        wt_path = str(entry.get("path") or "").strip()
+        if not wt_path:
+            continue
+
+        branch = str(entry.get("branch") or "").strip()
+        note = str(entry.get("note") or "").strip()
+        note_present = bool(entry.get("note_present", False))
+
+        if not note and note_present:
+            note_code, note_stdout, _ = run_command(
+                ["lazyworktree", "notes", "get", "--json", wt_path],
+                cwd=repo,
+            )
+            if note_code == 0 and note_stdout.strip():
+                note_entries = parse_json_payload(note_stdout)
+                if note_entries:
+                    note = str(note_entries[0].get("note") or "").strip()
+
+        clean_note = sanitize_note(note)
+        try:
+            modified_at = Path(wt_path).stat().st_mtime
+        except OSError:
+            modified_at = 0.0
+        collected.append(
+            WorktreeRow(
+                path=wt_path,
+                branch=branch,
+                note=clean_note,
+                modified_at=modified_at,
+            )
+        )
+
+    return collected
+
+
+@timed
+def run_textual_picker(
+    rows: list[WorktreeRow], initial_query: str = "", sort_order: str = "modified-desc"
+) -> str | None:
+    try:
+        from textual.app import App, ComposeResult
+        from textual.binding import Binding
+        from textual.widgets import DataTable, Footer, Header, Input
+    except ModuleNotFoundError:
+        logger.error("textual is required. Run this script via uv so deps are provisioned")
+        return None
+
+    class SwitchProjectApp(App[str | None]):
+        BINDINGS = [
+            Binding("escape", "cancel", "Cancel"),
+            Binding("q", "cancel", "Cancel", show=False),
+            Binding("/", "focus_search", "Search"),
+            Binding("ctrl+f", "focus_search", "Search", show=False),
+            Binding("s", "cycle_sort", "Sort"),
+            Binding("enter", "select", "Select"),
+        ]
+
+        def __init__(self, query: str = "") -> None:
+            super().__init__()
+            self._all_rows = rows
+            self._initial_query = query
+            self._sort_order = sort_order
+
+        def compose(self) -> ComposeResult:
+            yield Header(show_clock=False)
+            yield Input(placeholder="Search path / branch / note", id="search")
+            yield DataTable(id="projects")
+            yield Footer()
+
+        def on_mount(self) -> None:
+            table = self.query_one(DataTable)
+            search = self.query_one("#search", Input)
+            table.cursor_type = "row"
+            table.zebra_stripes = True
+            table.add_columns("path", "branch", "note")
+            if self._initial_query:
+                search.value = self._initial_query
+            self._refresh_table(self._initial_query)
+            if self._all_rows:
+                table.focus()
+
+        def _refresh_table(self, query: str) -> None:
+            table = self.query_one(DataTable)
+            table.clear(columns=False)
+
+            for row in filter_rows(self._all_rows, query):
+                table.add_row(shorten_home_path(row.path), row.branch, row.note, key=row.path)
+
+        def action_cycle_sort(self) -> None:
+            current_index = SORT_ORDERS.index(self._sort_order)
+            self._sort_order = SORT_ORDERS[(current_index + 1) % len(SORT_ORDERS)]
+            self._all_rows = sort_rows(self._all_rows, self._sort_order)
+            self._refresh_table(self.query_one("#search", Input).value)
+            self.notify(f"Sort: {SORT_LABELS[self._sort_order]}")
+
+        def on_input_changed(self, event: Input.Changed) -> None:
+            if event.input.id == "search":
+                self._refresh_table(event.value)
+
+        def on_input_submitted(self, event: Input.Submitted) -> None:
+            if event.input.id == "search":
+                self.query_one(DataTable).focus()
+
+        def action_focus_search(self) -> None:
+            self.query_one("#search", Input).focus()
+
+        def on_data_table_row_selected(self, event: DataTable.RowSelected) -> None:
+            self.exit(str(event.row_key.value))
+
+        def action_select(self) -> None:
+            if isinstance(self.focused, Input):
+                self.query_one(DataTable).focus()
+                return
+
+            table = self.query_one(DataTable)
+            coord = table.cursor_coordinate
+            cell_key = table.coordinate_to_cell_key(coord)
+            if cell_key is None:
+                self.exit(None)
+                return
+            row_key, _ = cell_key
+            self.exit(str(row_key.value))
+
+        def action_cancel(self) -> None:
+            self.exit(None)
+
+    app = SwitchProjectApp(initial_query)
+
+    if sys.stdout.isatty():
+        stdout_fd = sys.stdout.fileno()
+        tty_state = snapshot_tty(stdout_fd)
+        try:
+            return app.run()
+        finally:
+            restore_tty(stdout_fd, tty_state)
+            cleanup_tty_state()
+
+    try:
+        tty = open("/dev/tty", "w", encoding="utf-8", buffering=1)
+    except OSError:
+        logger.error("No TTY available for interactive picker")
+        return None
+
+    saved_stdout_fd = os.dup(sys.stdout.fileno())
+    tty_state = snapshot_tty(tty.fileno())
+    try:
+        os.dup2(tty.fileno(), sys.stdout.fileno())
+        return app.run()
+    finally:
+        os.dup2(saved_stdout_fd, sys.stdout.fileno())
+        os.close(saved_stdout_fd)
+        restore_tty(tty.fileno(), tty_state)
+        tty.close()
+        cleanup_tty_state()
+
+
+@timed
+def main() -> int:
+    configure_logging()
+
+    parser = argparse.ArgumentParser(description="Pick a worktree/project path")
+    parser.add_argument("terms", nargs="*", help="Initial search terms")
+    parser.add_argument("-q", "--query", default=None, help="Initial search query")
+    parser.add_argument(
+        "--sort",
+        choices=("modified-desc", "modified-asc", "path-asc", "path-desc"),
+        default="modified-desc",
+        help="Sort order (default: modified-desc)",
+    )
+    args = parser.parse_args()
+
+    initial_query = (args.query if args.query is not None else " ".join(args.terms)).strip()
+    if not initial_query:
+        initial_query = os.getenv("SWITCH_PROJECT_QUERY", "").strip()
+
+    workspaces_root = Path.home() / "workspaces"
+    if not workspaces_root.exists():
+        logger.error("Missing workspace root: {path}", path=workspaces_root)
+        log_benchmark_summary()
+        return 1
+
+    if shutil.which("lazyworktree") is None:
+        logger.error("Missing required command: lazyworktree")
+        log_benchmark_summary()
+        return 1
+
+    rows = collect_rows(workspaces_root, sort_order=args.sort)
+    if not rows:
+        logger.error("No repositories/worktrees found under {path}", path=workspaces_root)
+        log_benchmark_summary()
+        return 1
+
+    if initial_query:
+        matched_rows = filter_rows(rows, initial_query)
+        if len(matched_rows) == 1:
+            print(matched_rows[0].path, flush=True)
+            echo_selection(matched_rows[0].path)
+            log_benchmark_summary()
+            return 0
+
+    selected = run_textual_picker(rows, initial_query=initial_query, sort_order=args.sort)
+    if selected:
+        clean_selected = selected.strip()
+        if clean_selected:
+            print(clean_selected, flush=True)
+            echo_selection(clean_selected)
+        log_benchmark_summary()
+        return 0
+
+    log_benchmark_summary()
+    return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

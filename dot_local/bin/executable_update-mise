@@ -2,6 +2,9 @@
 set -e
 export GITHUB_TOKEN=$(gh auth token)
 export DEBIAN_FRONTEND=noninteractive
+if command -v sudo >/dev/null 2>&1; then
+  sudo -v
+fi
 if command -v sudo >/dev/null 2>&1 && command -v apt >/dev/null 2>&1; then
   sudo apt update -q
   sudo apt upgrade -q -y
@@ -14,9 +17,8 @@ if command -v omz >/dev/null 2>&1; then
   omz update
 fi
 mise self-update -y --silent
-mise up --silent -y uv aqua cargo-binstaller
+mise up --bump --silent -y uv aqua cargo-binstaller
 mise up --silent -y
 [[ -d ~/.git-extras ]] && git -C ~/.git-extras pull
 [[ -d ~/.git-plugins ]] && git -C ~/.git-plugins pull
 [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && git -C ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull
-
