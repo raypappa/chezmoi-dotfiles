@@ -1,4 +1,4 @@
-vim.env['CODECOMPANION_TOKEN_PATH'] = vim.fn.expand '~/.config'
+vim.env['CODECOMPANION_TOKEN_PATH'] = vim.fn.expand('~/.config')
 
 return {
   'olimorris/codecompanion.nvim',
@@ -10,7 +10,7 @@ return {
   },
   opts = {
     --Refer to: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
-    interactions = {
+    strategies = {
       chat = {
         adapter = 'copilot',
       },
@@ -39,7 +39,12 @@ return {
     -- },
   },
   init = function()
-    local config = require 'blink.cmp.config'
-    table.insert(config.sources.default, 'codecompanion')
+    require('blink.cmp').add_source_provider('codecompanion', {
+      name = 'CodeCompanion',
+      module = 'codecompanion.providers.completion.blink',
+      enabled = function()
+        return require('codecompanion').is_active()
+      end,
+    })
   end,
 }

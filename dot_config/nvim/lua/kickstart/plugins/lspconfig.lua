@@ -3,9 +3,8 @@ return {
     'neovim/nvim-lspconfig',
 
     dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'j-hui/fidget.nvim', opts = {} },
-      { 'folke/neodev.nvim', opts = {} },
+      { 'j-hui/fidget.nvim' },
+      { 'folke/lazydev.nvim', ft = 'lua', opts = {} },
     },
     config = function()
       -- Keybinding config
@@ -47,7 +46,7 @@ return {
               group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                vim.api.nvim_clear_autocmds({ group = 'kickstart-lsp-highlight', buffer = event2.buf })
               end,
             })
           end
@@ -61,9 +60,12 @@ return {
         end,
       })
 
-      -- Capabilities setup for cmp integration
+      -- LSP progress spinner
+      require('fidget').setup({})
+
+      -- Capabilities setup for blink.cmp integration
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
       -- Native Nvim 0.12 LSP configuration
       -- Configure each server with vim.lsp.config() then enable with vim.lsp.enable()
@@ -104,6 +106,12 @@ return {
             completion = {
               callSnippet = 'Replace',
             },
+            workspace = {
+              checkThirdParty = false,
+            },
+            diagnostics = {
+              disable = { 'missing-fields' },
+            },
           },
         },
       })
@@ -118,6 +126,16 @@ return {
 
       vim.lsp.config('yamlls', {
         capabilities = capabilities,
+        settings = {
+          yaml = {
+            -- schemastore.nvim provides schemas; disable the built-in store
+            schemaStore = {
+              enable = false,
+              url = '',
+            },
+            schemas = require('schemastore').yaml.schemas(),
+          },
+        },
       })
 
       vim.lsp.config('jsonls', {
@@ -170,29 +188,29 @@ return {
 
       -- Enable all configured servers
       -- Tools are managed by mise globally. See ~/.config/mise/conf.d/local.toml
-      vim.lsp.enable 'terraformls' -- mise use -g terraform-ls
-      vim.lsp.enable 'rust_analyzer' -- mise use -g rust-analyzer
-      vim.lsp.enable 'lua_ls' -- mise use -g lua-language-server
-      vim.lsp.enable 'gopls' -- mise use -g go:golang.org/x/tools/gopls@latest
-      vim.lsp.enable 'pyright' -- mise use -g npm:pyright
-      vim.lsp.enable 'yamlls' -- mise use -g npm:yaml-language-server
-      vim.lsp.enable 'jsonls' -- mise use -g npm:vscode-langservers-extracted
-      vim.lsp.enable 'bashls' -- mise use -g npm:bash-language-server
-      vim.lsp.enable 'ansiblels' -- mise use -g npm:@ansible/ansible-language-server
-      vim.lsp.enable 'dockerls' -- mise use -g npm:dockerfile-language-server-nodejs
-      vim.lsp.enable 'marksman' -- mise use -g marksman
-      vim.lsp.enable 'awk_ls' -- mise use -g npm:awk-language-server
-      vim.lsp.enable 'ruby_lsp' -- mise use -g gem:ruby-lsp
-      vim.lsp.enable 'sqls' -- mise use -g go:github.com/sqls-server/sqls@latest
-      vim.lsp.enable 'taplo' -- mise use -g taplo
-      vim.lsp.enable 'biome' -- mise use -g biome
-      vim.lsp.enable 'jinja_lsp' -- mise use -g cargo:jinja-lsp
-      vim.lsp.enable 'ruff' -- mise use -g ruff
+      vim.lsp.enable('terraformls') -- mise use -g terraform-ls
+      vim.lsp.enable('rust_analyzer') -- mise use -g rust-analyzer
+      vim.lsp.enable('lua_ls') -- mise use -g lua-language-server
+      vim.lsp.enable('gopls') -- mise use -g go:golang.org/x/tools/gopls@latest
+      vim.lsp.enable('pyright') -- mise use -g npm:pyright
+      vim.lsp.enable('yamlls') -- mise use -g npm:yaml-language-server
+      vim.lsp.enable('jsonls') -- mise use -g npm:vscode-langservers-extracted
+      vim.lsp.enable('bashls') -- mise use -g npm:bash-language-server
+      vim.lsp.enable('ansiblels') -- mise use -g npm:@ansible/ansible-language-server
+      vim.lsp.enable('dockerls') -- mise use -g npm:dockerfile-language-server-nodejs
+      vim.lsp.enable('marksman') -- mise use -g marksman
+      vim.lsp.enable('awk_ls') -- mise use -g npm:awk-language-server
+      vim.lsp.enable('ruby_lsp') -- mise use -g gem:ruby-lsp
+      vim.lsp.enable('sqls') -- mise use -g go:github.com/sqls-server/sqls@latest
+      vim.lsp.enable('taplo') -- mise use -g taplo
+      vim.lsp.enable('biome') -- mise use -g biome
+      vim.lsp.enable('jinja_lsp') -- mise use -g cargo:jinja-lsp
+      vim.lsp.enable('ruff') -- mise use -g ruff
 
       -- Fold options
       vim.opt.foldcolumn = '0'
       vim.opt.foldmethod = 'expr'
-      vim.opt.foldexpr = 'v:lua.vim.lsp.buf.foldexpr()'
+      vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.opt.foldtext = ''
       vim.opt.foldnestmax = 3
       vim.opt.foldlevel = 99

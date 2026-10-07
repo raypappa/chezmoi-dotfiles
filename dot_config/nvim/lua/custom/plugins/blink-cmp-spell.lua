@@ -22,7 +22,5 @@ return {
         end,
       },
     })
-    local config = require 'blink.cmp.config'
-    table.insert(config.sources.default, 'spell')
   end,
 }

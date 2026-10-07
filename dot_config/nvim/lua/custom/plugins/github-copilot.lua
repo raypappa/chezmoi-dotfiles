@@ -3,10 +3,10 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     config = function()
-      require('copilot').setup {
+      require('copilot').setup({
         suggestion = { enabled = false },
         panel = { enabled = false },
-      }
+      })
     end,
   },
   {
@@ -18,8 +18,6 @@ return {
         score_offset = 100,
         async = true,
       })
-      local config = require 'blink.cmp.config'
-      table.insert(config.sources.default, 'copilot')
     end,
   },
 }

@@ -1,6 +1,6 @@
-# ~/.zshrc is sourced for interactive shells after ~/.zshenv. It skips the
-# 00-19 environment/PATH modules and loads the 20+ interactive modules in
-# lexical order.
+# ~/.zshrc is sourced for interactive shells after ~/.zshenv and, for login
+# shells, ~/.zprofile. It skips the 00-19 environment/PATH modules and loads
+# the 20+ interactive modules in lexical order.
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -136,7 +136,6 @@ if type starship 2>&1 >/dev/null; then
   eval "$(starship init zsh)"
 fi
 
-zstyle ':completion:*' completer _expand _complete _ignored
 zstyle ':completion:*' completions 1
 zstyle ':completion:*' glob 1
 zstyle ':completion:*' max-errors 2
@@ -146,5 +145,7 @@ zstyle :compinstall filename '/home/${USER}/.zshrc'
 
 autoload -Uz compinit
 compinit
+compdef _files vim
+bindkey '^I' expand-or-complete
 
 # vim: ci pi sts=0 sw=2 ts=2 ft=zsh

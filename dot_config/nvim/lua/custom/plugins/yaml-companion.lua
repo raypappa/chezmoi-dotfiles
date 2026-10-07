@@ -8,8 +8,7 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   config = function(_, opts)
-    local cfg = require('yaml-companion').setup(opts)
-    vim.lsp.config('yamlls', cfg)
-    require('telescope').load_extension 'yaml_schema'
+    require('yaml-companion').setup(opts)
+    require('telescope').load_extension('yaml_schema')
   end,
 }

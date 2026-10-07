@@ -1,6 +1,6 @@
 ---
 name: readme-authoring
-description: Creates, reviews, and rewrites repository README files in Markdown for users, developers, and contributors. Use when the user asks to write, improve, audit, or rewrite a README, add getting-started/getting-the-code docs, document prerequisites or local dev setup, or prepare a repo landing page for GitHub or Azure Repos.
+description: Use when writing, improving, auditing, or rewriting a repository README in Markdown, including getting-started/getting-the-code docs, prerequisites, local development setup, or a repo landing page for GitHub or Azure Repos.
 ---
 
 # README authoring
@@ -35,6 +35,9 @@ Use these sections in order. Skip a section only when it truly does not apply (e
 ### 1. Introduction
 
 - One short paragraph: what the project does and why it exists.
+- Make the opening answer **what**, **why**, and **how**: what the project is, what problem or motivation it addresses, and the shortest path to trying it.
+- When the repository has a clear differentiator, learning outcome, notable constraint, or planned capability, state it briefly instead of making generic claims.
+- If the project has several meaningful capabilities, add a compact **Features** section near the introduction; do not turn it into an exhaustive inventory.
 - Project logo/icon in the header if one exists (per repo assets); keep emoji use minimal elsewhere.
 - UI projects: mention or link a screenshot/GIF (add the asset or leave a clear placeholder path).
 - State dependencies (runtime, cloud services, other repos) and supported OS/platforms when relevant.
@@ -65,6 +68,12 @@ Focus on **essential steps only**, in the order a fresh clone actually needs the
 4. If the project is a library/API instead of an app: a **minimal usage snippet** with expected output so readers can verify setup, instead of a dev server.
 5. Complex setup (multiple services, cloud accounts, infra provisioning): document in a separate file under `docs/` and **link** to it rather than inlining it.
 
+### 4a. Usage and evidence
+
+- Show the smallest useful example of the project in use: a command, API request, code snippet, expected output, or UI flow.
+- For visual projects, prefer a real screenshot or GIF from the repository over a decorative image. Add meaningful alt text and keep the asset path valid.
+- Document authentication or sample credentials only when the repository intentionally provides them; never include real secrets or imply that readers should share credentials.
+
 ### 5. Build, test, and deploy (developers)
 
 - Build command for a production artifact, if different from the dev server.
@@ -79,6 +88,12 @@ Focus on **essential steps only**, in the order a fresh clone actually needs the
 - PR requirements (branch naming, reviews, CI).
 - **License**: name and a link to the license file. Do not paste the license text; do not duplicate `CONTRIBUTING.md`/`CHANGELOG.md` content into the README — link to those files instead.
 
+### Optional supporting sections
+
+- **Badges**: include only badges that communicate useful, verifiable project health or entry points, such as CI, release, coverage, package, or license. Keep them near the title and remove stale or noisy badges.
+- **Credits and references**: credit collaborators, upstream projects, tutorials, datasets, or design resources when they materially informed the project. Link to canonical sources rather than copying their content.
+- **Table of contents**: add one only when the README is long enough that navigation benefits; do not add it to a short README.
+
 ---
 
 ## Create workflow
@@ -87,16 +102,19 @@ Focus on **essential steps only**, in the order a fresh clone actually needs the
 README progress:
 - [ ] Inspect repo (remote, manifests, scripts, deps, CI, devcontainer, existing docs)
 - [ ] Draft all sections, including Getting the code / Prerequisites / Development server
+- [ ] Make the introduction answer what/why/how and surface differentiators or key features
+- [ ] Add one verifiable usage example and relevant visual evidence when the project supports it
 - [ ] Verify every command against the repo (and the actual git remote)
 - [ ] Check all four audiences (users, developers, contributors, AI coding agents)
-- [ ] Final pass: links, headings, admonitions, no stale paths
+- [ ] Final pass: links, headings, assets, badges, credits, freshness, admonitions, no stale paths
 ```
 
 1. Inspect `package.json`/`pyproject.toml`/`go.mod`/`Makefile`, `Dockerfile`/devcontainer, CI configs, version-pin files (`.nvmrc`, `volta` block, `.tool-versions`), and `git remote -v`.
 2. Draft using the structure above; prefer commands copy-pasted from working project scripts, not paraphrased.
 3. Use GFM admonitions where they earn their place — `[!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]` — for the one or two things a reader most needs to not miss (a required tool, a common footgun). Don't scatter them everywhere.
 4. Keep prose at **Level B2 English** — clear sentences, jargon only when standard for the stack.
-5. Do not add unrelated docs files unless the user asks.
+5. Keep the README current with the repository: update commands, screenshots, badges, feature claims, and supported versions when the implementation changes.
+6. Do not add unrelated docs files unless the user asks.
 
 ---
 
@@ -108,6 +126,8 @@ Produce a short review before rewriting unless the user asked for direct edits o
 
 **Introduction**
 - [ ] Purpose clear in the first paragraph
+- [ ] Opening answers what, why, and how
+- [ ] Differentiators or meaningful features are visible without hype
 - [ ] Dependencies and platform constraints stated
 
 **Getting the code**
@@ -126,6 +146,11 @@ Produce a short review before rewriting unless the user asked for direct edits o
 - [ ] Dev mode is clearly distinguished from build/deploy
 - [ ] Library/API has a verifiable minimal example instead, if applicable
 
+**Usage and evidence**
+- [ ] A minimal command, code/API example, expected output, or UI flow is included
+- [ ] Screenshots/GIFs are useful, accessible, and linked to valid repository assets
+- [ ] No real credentials or secrets are documented
+
 **Build, test, deploy**
 - [ ] Fresh-clone path documented
 - [ ] Build and test commands match repo scripts/CI
@@ -136,11 +161,17 @@ Produce a short review before rewriting unless the user asked for direct edits o
 - [ ] Contribution rules linked, not duplicated
 - [ ] License stated, not pasted in full; CONTRIBUTING/CHANGELOG not duplicated
 
+**Optional sections**
+- [ ] Badges are useful, valid, and not stale
+- [ ] Collaborators and external references are credited where appropriate
+- [ ] Table of contents is used only when the README is long enough to need it
+
 **General**
 - [ ] Markdown headings form a logical outline
 - [ ] No broken internal links or wrong paths
 - [ ] No secrets, tokens, or internal-only URLs unless the repo is private and the user expects them
 - [ ] Commands were checked against the repo (not assumed)
+- [ ] README claims, examples, assets, badges, and version references are current
 - [ ] Emoji use is minimal; admonitions used sparingly and only where they add signal
 
 ### Review output format
@@ -197,4 +228,4 @@ Produce a short review before rewriting unless the user asked for direct edits o
 For structure, tone, and the "getting the code / prerequisites / dev vs. deploy" split, see:
 [ASP.NET Core](https://github.com/aspnet/Home), [Visual Studio Code](https://github.com/Microsoft/vscode), [Chakra Core](https://github.com/Microsoft/ChakraCore), and the Azure Samples READMEs referenced by GitHub's [`create-readme` skill](https://github.com/github/awesome-copilot/blob/main/skills/create-readme/SKILL.md) (e.g. [serverless-chat-langchainjs](https://github.com/Azure-Samples/serverless-chat-langchainjs)) — note in particular how they separate "Get the code" (fork/clone/Codespaces/Dev Container) from "Prerequisites" from "Run the sample" (local dev vs. deploy).
 
-For section templates, admonition syntax, and Azure Repos context, see [reference.md](reference.md).
+For section templates, admonition syntax, Azure Repos context, and the source that informed the optional sections above, see [reference.md](reference.md).

@@ -9,7 +9,13 @@ fi
 
 if command -v mise >/dev/null 2>&1; then
   if command -v fnox >/dev/null 2>&1; then
+    if command -v uv >/dev/null 2>&1; then
+      exec mise x -- fnox exec -- uv run -- opencode "$@"
+    fi
     exec mise x -- fnox exec -- opencode "$@"
+  fi
+  if command -v uv >/dev/null 2>&1; then
+    exec mise x -- uv run -- opencode "$@"
   fi
   exec mise x -- opencode "$@"
 fi
@@ -20,7 +26,14 @@ if ! command -v opencode >/dev/null 2>&1; then
 fi
 
 if command -v fnox >/dev/null 2>&1; then
+  if command -v uv >/dev/null 2>&1; then
+    exec fnox exec -- uv run -- opencode "$@"
+  fi
   exec fnox exec -- opencode "$@"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+  exec uv run -- opencode "$@"
 fi
 
 exec opencode "$@"

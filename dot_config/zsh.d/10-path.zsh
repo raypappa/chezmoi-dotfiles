@@ -41,12 +41,11 @@ if [[ -d "${HOME}/Library/Python" ]]; then
   done
 fi
 
-add2path "$HOME/.local/bin" "front"
 add2path "$HOME/.krew/bin" "front"
 add2path "$HOME/.git-plugins/bin" "front"
-add2path "$HOME/.git-extras/bin" "front"
 add2path "$HOME/.rd/bin" "front"
 add2path "${KREW_ROOT:-$HOME/.krew}/bin"
+add2path "$HOME/.local/bin" "front"
 
 if command -v mise &>/dev/null; then
   eval "$(mise activate zsh)"

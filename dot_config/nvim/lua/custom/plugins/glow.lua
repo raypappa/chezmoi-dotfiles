@@ -10,6 +10,7 @@ return {
       anti_conceal = {
         enabled = true,
       },
+      file_types = { 'markdown', 'opencode_output', 'Avante', 'copilot-chat' },
     },
   },
   {

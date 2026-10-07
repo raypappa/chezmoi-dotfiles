@@ -17,8 +17,18 @@ if command -v omz >/dev/null 2>&1; then
   omz update
 fi
 mise self-update -y --silent
-mise up --bump --silent -y uv aqua cargo-binstaller
+# mise lock --upgrade --global
+mise up --bump --silent -y uv aqua cargo-binstaller rust go node ruby
 mise up --silent -y
-[[ -d ~/.git-extras ]] && git -C ~/.git-extras pull
+if [[ -d ~/.git-extras ]]; then
+  git -C ~/.git-extras pull
+  (cd ~/.git-extras && PREFIX=~/.local make install)
+  if [ ! -e ~/.config/zsh.d/51-git-extras-completion.zsh ];then
+    ln -s ~/.git-extras/etc/git-extras-completion.zsh ~/.config/zsh.d/51-git-extras-completion.zsh
+  fi
+fi
 [[ -d ~/.git-plugins ]] && git -C ~/.git-plugins pull
 [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && git -C ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions pull
+if command -v gcloud >/dev/null 2>&1;then
+  gcloud components update --quiet
+fi
