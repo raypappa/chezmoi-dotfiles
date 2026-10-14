@@ -89,6 +89,20 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+if os.getenv('WSL_DISTRO_NAME') ~= nil then
+  vim.g.clipboard = {
+    name = 'wsl clipboard',
+    copy = {
+      ['+'] = { 'clip.exe' },
+      ['*'] = { 'clip.exe' },
+    },
+    paste = {
+      ['+'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ['*'] = 'powershell.exe -NoLogo -NoProfile -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = true,
+  }
+end
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
