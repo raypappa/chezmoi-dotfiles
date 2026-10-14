@@ -13,6 +13,9 @@ if command -v brew >/dev/null 2>&1; then
   brew update
   brew upgrade -y
 fi
+if command -v docker >/dev/null 2>&1 && docker desktop --help >/dev/null 2>&1; then
+  docker desktop update
+fi
 if command -v omz >/dev/null 2>&1; then
   omz update
 fi
