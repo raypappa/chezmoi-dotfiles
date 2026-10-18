@@ -9,6 +9,11 @@ if command -v sudo >/dev/null 2>&1 && command -v apt >/dev/null 2>&1; then
   sudo apt update -q
   sudo apt upgrade -q -y
 fi
+if [[ -n "${WSL_DISTRO_NAME:-}" ]] || grep -qi microsoft /proc/version; then
+  if command -v pwsh.exe >/dev/null 2>&1; then
+    pwsh.exe -NoProfile -Command '$log = Join-Path $env:TEMP "windows-package-upgrade.log"; $script = "winget upgrade -h --all --accept-source-agreements --accept-package-agreements --disable-interactivity *> `"$log`"; `$wingetExit = `$LASTEXITCODE; choco upgrade -y all *>> `"$log`"; `$chocoExit = `$LASTEXITCODE; if (`$wingetExit -ne 0) { exit `$wingetExit }; exit `$chocoExit"; $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($script)); $process = Start-Process pwsh.exe -Verb RunAs -Wait -PassThru -ArgumentList "-NoProfile -EncodedCommand $encoded"; Get-Content $log; exit $process.ExitCode'
+  fi
+fi
 if command -v brew >/dev/null 2>&1; then
   brew update
   brew upgrade -y
